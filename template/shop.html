@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Shop - Jims Honey Official</title>
+    <meta name="description" content="Shop the latest collection of bags, wallets, watches, and heels from Jims Honey Official Indonesia.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/shop.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header-area fixed-top">
+        <!-- Top Bar -->
+        <div class="header-top bg-light py-2">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <!-- Language Selector -->
+                            <div class="dropdown me-3">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-1">
+                                    Indonesia
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-lang="id">
+                                        <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-2">Indonesia
+                                    </a></li>
+                                    <li><a class="dropdown-item active" href="#" data-lang="en">
+                                        <img src="https://jimshoneyofficial.co.id/assets/img/flags/en.png" alt="English" width="20" class="me-2">English
+                                    </a></li>
+                                </ul>
+                            </div>
+                            <!-- Currency Selector -->
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Indonesia Rp
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">U.S. Dollar ($)</a></li>
+                                    <li><a class="dropdown-item active" href="#">Indonesia (Rp)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end d-none d-md-block">
+                        <a href="#" class="text-decoration-none me-3">Login</a>
+                        <a href="#" class="text-decoration-none">Registration</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="../index.html">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50">
+                </a>
+
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="shop.html">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" target="_blank">Become Reseller</a>
+                        </li>
+                    </ul>
+
+                    <!-- Header Actions -->
+                    <div class="header-actions d-flex align-items-center">
+                        <!-- Search -->
+                        <button class="btn btn-link p-2" data-bs-toggle="modal" data-bs-target="#searchModal">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <!-- Wishlist -->
+                        <!-- <a href="#" class="btn btn-link p-2 position-relative">
+                            <i class="far fa-heart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">0</span>
+                        </a> -->
+                        <!-- Cart -->
+                        <a href="cart.html" class="btn btn-link p-2 position-relative">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">0</span>
+                        </a>
+                        <!-- User -->
+                        <div class="dropdown">
+                            <button class="btn btn-link p-2" data-bs-toggle="dropdown">
+                                <i class="far fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="#">Registration</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="shop-page">
+        <!-- Breadcrumb -->
+        <section class="breadcrumb-section py-3">
+            <div class="container-fluid">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Shop</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Shop Content -->
+        <section class="shop-content py-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-lg-3">
+                        <div class="shop-sidebar">
+                            <!-- Categories -->
+                            <div class="sidebar-widget mb-4">
+                                <h4 class="widget-title">Categories</h4>
+                                <ul class="category-list">
+                                    <li>
+                                        <a href="shop.html?Categories=All" class="d-flex justify-content-between active">
+                                            <span>All Products</span>
+                                            <span class="count">(120)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html?Categories=Bags" class="d-flex justify-content-between">
+                                            <span>Bags</span>
+                                            <span class="count">(45)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html?Categories=Wallets" class="d-flex justify-content-between">
+                                            <span>Wallets</span>
+                                            <span class="count">(32)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html?Categories=Watches" class="d-flex justify-content-between">
+                                            <span>Watches</span>
+                                            <span class="count">(28)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html?Categories=Heels" class="d-flex justify-content-between">
+                                            <span>Heels</span>
+                                            <span class="count">(15)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html?Categories=Powerbank" class="d-flex justify-content-between">
+                                            <span>Powerbank</span>
+                                            <span class="count">(8)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html?Categories=Tumbler" class="d-flex justify-content-between">
+                                            <span>Tumbler</span>
+                                            <span class="count">(5)</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Price Filter -->
+                            <div class="sidebar-widget mb-4">
+                                <h4 class="widget-title">Price Range</h4>
+                                <div class="price-filter">
+                                    <input type="range" class="form-range" min="0" max="1000000" value="500000" id="priceRange">
+                                    <div class="price-display d-flex justify-content-between mt-2">
+                                        <span>Rp 0</span>
+                                        <span id="currentPrice">Rp 500,000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Color Filter -->
+                            <div class="sidebar-widget mb-4">
+                                <h4 class="widget-title">Colors</h4>
+                                <div class="color-filter d-flex flex-wrap gap-2">
+                                    <button class="color-option" style="background-color: #000000" title="Black" data-color="black"></button>
+                                    <button class="color-option" style="background-color: #FFFFFF" title="White" data-color="white"></button>
+                                    <button class="color-option" style="background-color: #FF0000" title="Red" data-color="red"></button>
+                                    <button class="color-option" style="background-color: #0000FF" title="Blue" data-color="blue"></button>
+                                    <button class="color-option" style="background-color: #FFB0CD" title="Pink" data-color="pink"></button>
+                                    <button class="color-option" style="background-color: #8B4513" title="Brown" data-color="brown"></button>
+                                    <button class="color-option" style="background-color: #808080" title="Gray" data-color="gray"></button>
+                                    <button class="color-option" style="background-color: #000080" title="Navy" data-color="navy"></button>
+                                    <button class="color-option" style="background-color: #C0C0C0" title="Silver" data-color="silver"></button>
+                                    <button class="color-option" style="background-color: #FFD700" title="Gold" data-color="gold"></button>
+                                    <button class="color-option" style="background-color: #FFC0CB" title="Rose Gold" data-color="rose gold"></button>
+                                    <button class="color-option" style="background-color: #F5F5DC" title="Beige" data-color="beige"></button>
+                                    <button class="color-option" style="background-color: #D2B48C" title="Nude" data-color="nude"></button>
+                                </div>
+                            </div>
+
+                            <!-- Size Filter -->
+                            <div class="sidebar-widget mb-4">
+                                <h4 class="widget-title">Size</h4>
+                                <div class="size-filter d-flex flex-wrap gap-2">
+                                    <button class="size-option">S</button>
+                                    <button class="size-option">M</button>
+                                    <button class="size-option">L</button>
+                                    <button class="size-option">XL</button>
+                                    <button class="size-option">36</button>
+                                    <button class="size-option">37</button>
+                                    <button class="size-option">38</button>
+                                    <button class="size-option">39</button>
+                                    <button class="size-option">40</button>
+                                </div>
+                            </div>
+
+                            <!-- Tags -->
+                            <div class="sidebar-widget">
+                                <h4 class="widget-title">Popular Tags</h4>
+                                <div class="tag-cloud">
+                                    <a href="#" class="tag">Fashion</a>
+                                    <a href="#" class="tag">Trendy</a>
+                                    <a href="#" class="tag">Women</a>
+                                    <a href="#" class="tag">Men</a>
+                                    <a href="#" class="tag">Unisex</a>
+                                    <a href="#" class="tag">Accessories</a>
+                                    <a href="#" class="tag">New Arrival</a>
+                                    <a href="#" class="tag">Sale</a>
+                                    <a href="#" class="tag">Casual</a>
+                                    <a href="#" class="tag">Minimalist</a>
+                                    <a href="#" class="tag">Sports</a>
+                                    <a href="#" class="tag">Electronics</a>
+                                    <a href="#" class="tag">Travel</a>
+                                    <a href="#" class="tag">Lifestyle</a>
+                                    <a href="#" class="tag">Tools</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products -->
+                    <div class="col-lg-9">
+                        <!-- Shop Header -->
+                        <div class="shop-header d-flex justify-content-between align-items-center mb-4">
+                            <div class="result-count">
+                                Showing <strong>1-12</strong> of <strong>120</strong> results
+                            </div>
+                            <div class="shop-controls d-flex gap-3">
+                                <!-- View Mode -->
+                                <div class="view-mode">
+                                    <button class="btn btn-sm btn-outline-secondary active" id="gridView">
+                                        <i class="fas fa-th"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="listView">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                </div>
+                                <!-- Sort -->
+                                <select class="form-select form-select-sm" style="width: auto;">
+                                    <option value="default">Default sorting</option>
+                                    <option value="popularity">Sort by popularity</option>
+                                    <option value="latest">Sort by latest</option>
+                                    <option value="price-low">Sort by price: low to high</option>
+                                    <option value="price-high">Sort by price: high to low</option>
+                                    <option value="rating">Sort by rating</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Products Grid -->
+                        <div class="row" id="productGrid">
+                            <!-- Products will be loaded here -->
+                        </div>
+                        
+                        <!-- Quick View Modal -->
+                        <div class="modal fade" id="quickViewModal" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Product Quick View</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="product-gallery">
+                                                    <img src="" alt="" class="img-fluid main-image">
+                                                    <div class="gallery-thumbnails mt-3 d-flex">
+                                                        <!-- Thumbnails will be loaded here -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="product-details">
+                                                    <h4 class="product-title"></h4>
+                                                    <div class="product-rating mb-2"></div>
+                                                    <div class="product-price mb-3"></div>
+                                                    <div class="product-description mb-3"></div>
+                                                    <!-- <div class="product-meta">
+                                                        <p><strong>Category:</strong> <span class="product-category"></span></p>
+                                                        <p><strong>Availability:</strong> <span class="product-availability"></span></p>
+                                                    </div> -->
+                                                    <div class="product-colors mb-3">
+                                                        <h6>Colors:</h6>
+                                                        <div class="color-options d-flex gap-2">
+                                                            <!-- Color options will be loaded here -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="product-sizes mb-3">
+                                                        <h6>Sizes:</h6>
+                                                        <div class="size-options d-flex gap-2">
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="product-colors mt-4">
+                                                        <div class="quantity-selector d-flex align-items-center mb-3">
+                                                            <button class="btn btn-sm btn-outline-secondary quantity-decrease">-</button>
+                                                            <input type="number" class="form-control mx-2" value="1" min="1" style="width: 60px;">
+                                                            <button class="btn btn-sm btn-outline-secondary quantity-increase">+</button>
+                                                        </div>
+                                                        <button class="btn btn-primary add-to-cart-btn" data-product-id="">
+                                                            <i class="fas fa-shopping-cart" style="margin-right: 8px;"></i> Add to Cart
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav aria-label="Shop pagination" class="mt-5">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-area pt-5 pb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50" class="mb-3">
+                        <p>JIMS HONEY was established in Indonesia since 2014, started as a trading company providing daily fashion item such as bag, wallet and timepiece with the company name as the brand itself.</p>
+                        <div class="contact-info mt-4">
+                            <h5>Got Questions? Call us 24/7!</h5>
+                            <h4 class="text-primary">+62 851-5507-7299</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Contact Info</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <strong>Address:</strong><br>
+                                Ruko Grand Galaxy City RGK 582, Jaka Setia, Bekasi Selatan, West Java 17141
+                            </li>
+                            <li class="mb-3">
+                                <strong>Phone:</strong><br>
+                                +62 851-5507-7299
+                            </li>
+                            <li class="mb-3">
+                                <strong>Email:</strong><br>
+                                <a href="mailto:jimshoneypartnership@gmail.com">jimshoneypartnership@gmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Social Media</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="https://www.instagram.com/jimshoney.jakarta/" target="_blank">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="https://www.tiktok.com/@jims_honey_indonesia" target="_blank">
+                                    <i class="fab fa-tiktok"></i> Tiktok
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15863.816452209454!2d106.9715267!3d-6.2697653!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x317b90e53eb362ef!2sJims%20Honey%20Official%20Store!5e0!3m2!1sen!2sid!4v1652869066752!5m2!1sen!2sid" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row mt-4 pt-4 border-top">
+                <div class="col-md-6">
+                    <p class="mb-0">Copyright © 2024 JIMS HONEY OFFICIAL</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <img src="../images/payment/bca.png" alt="BCA" height="30" class="me-2">
+                    <img src="../images/payment/bri.png" alt="BRI" height="30" class="me-2">
+                    <img src="../images/payment/mandiri.png" alt="Mandiri" height="30">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <form class="search-form w-75">
+                        <input type="search" class="form-control form-control-lg" placeholder="Search Entire Store...">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Cart Modal -->
+    <!-- <div class="modal fade" id="addToCartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                     Product details will be loaded dynamically 
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/main.js"></script>
+    <script src="../js/shop.js"></script>
+</body>
+</html>

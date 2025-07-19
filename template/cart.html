@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Shopping Cart | Jims Honey Official</title>
+    <meta name="description" content="Review and manage items in your shopping cart.">
+    
+    <link rel="icon" type="image/x-icon" href="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-area fixed-top">
+        <!-- Top Bar -->
+        <div class="header-top bg-light py-2">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <!-- Language Selector -->
+                            <div class="dropdown me-3">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-1">
+                                    Indonesia
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-lang="id">
+                                        <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-2">Indonesia
+                                    </a></li>
+                                    <li><a class="dropdown-item active" href="#" data-lang="en">
+                                        <img src="https://jimshoneyofficial.co.id/assets/img/flags/en.png" alt="English" width="20" class="me-2">English
+                                    </a></li>
+                                </ul>
+                            </div>
+                            <!-- Currency Selector -->
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Indonesia (Rp)
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-currency="USD">U.S. Dollar ($)</a></li>
+                                    <li><a class="dropdown-item active" href="#" data-currency="IDR">Indonesia (Rp)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end d-none d-md-block">
+                        <a href="#" class="text-decoration-none me-3">Login</a>
+                        <a href="#" class="text-decoration-none">Registration</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="index.html">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50">
+                </a>
+
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" target="_blank">Become Reseller</a>
+                        </li>
+                    </ul>
+
+                    <!-- Header Actions -->
+                    <div class="header-actions d-flex align-items-center">
+                        <a href="cart.html" class="btn btn-link p-2 position-relative">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">0</span>
+                        </a>
+                        <div class="dropdown">
+                            <button class="btn btn-link p-2" data-bs-toggle="dropdown">
+                                <i class="far fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="#">Registration</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <section id="cart" class="container mt-5 pt-5">
+            <h2 class="font-weight-bold text-center">Shopping Cart</h2>
+            <hr class="mx-auto">
+        </section>
+
+        <section id="cart-container" class="container my-5">
+            <div class="row">
+                <!-- Cart Items -->
+                <div class="col-lg-8">
+                    <div id="cart-items-container">
+                        <!-- Cart items will be dynamically inserted here -->
+                        <div class="text-center py-5" id="empty-cart-message" style="display: none;">
+                            <h3>Keranjang Anda kosong</h3>
+                            <a href="shop.html" class="btn btn-primary mt-3">Belanja Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center mb-4">Ringkasan Pesanan</h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal</span>
+                                <strong id="cart-subtotal">Rp 0</strong>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold h5">
+                                <span>Grand Total</span>
+                                <strong id="cart-grand-total">Rp 0</strong>
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                                <a href="payment.html" id="checkout-btn" class="btn btn-primary btn-lg disabled">Lanjutkan ke Pembayaran</a>
+                                <a href="shop.html" class="btn btn-outline-secondary">Lanjutkan Belanja</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-area pt-5 pb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50" class="mb-3">
+                        <p>JIMS HONEY was established in Indonesia since 2014, started as a trading company providing daily fashion item such as bag, wallet and timepiece with the company name as the brand itself.</p>
+                    </div>
+                </div>
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Contact Info</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3"><strong>Address:</strong><br>Ruko Grand Galaxy City RGK 582, Jaka Setia, Bekasi Selatan, West Java 17141</li>
+                            <li class="mb-3"><strong>Phone:</strong><br>+62 851-5507-7299</li>
+                            <li class="mb-3"><strong>Email:</strong><br><a href="mailto:jimshoneypartnership@gmail.com">jimshoneypartnership@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Social Media -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Social Media</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="https://www.instagram.com/jimshoney.jakarta/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                            <li class="mb-2"><a href="https://www.tiktok.com/@jims_honey_indonesia" target="_blank"><i class="fab fa-tiktok"></i> Tiktok</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Map -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15863.816452209454!2d106.9715267!3d-6.2697653!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x317b90e53eb362ef!2sJims%20Honey%20Official%20Store!5e0!3m2!1sen!2sid!4v1652869066752!5m2!1sen!2sid" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4 border-top">
+                <div class="col-md-6"><p class="mb-0">Copyright © 2024 JIMS HONEY OFFICIAL</p></div>
+                <div class="col-md-6 text-md-end">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Payment Methods" height="30">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

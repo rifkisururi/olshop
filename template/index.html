@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Jims Honey Official | You Deserve The Best</title>
+    <meta name="description" content="Jims Honey Official Indonesia merupakan brand fashion lokal yang memproduksi tas, dompet, dan juga jam tangan dewasa untuk pria dan wanita.">
+    <meta name="keywords" content="fashion, Jims Honey, supplier tas, join reseller jimshoney, reseller jimshoney, supplier jimshoney, jimshoney pusat, tas wanita, dompet wanita, powerbank, jam tangan, supplier jam tangan, supplier jam, supplier powerbank, grosir jimshoney, jimshoney official, jimshoney indonesia, supplier dompet, wholesale, jualan grosir, join reseller, dropship jimshoney, dropship, retail, fashion bags, style, lokal brand indonesia, dropshipper, belajar bisnis">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Jims Honey Official | Supplier Tas No 1 di Indonesia">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jimshoneyofficial.co.id">
+    <meta property="og:description" content="Jims Honey Official Indonesia merupakan brand fashion lokal yang memproduksi tas, dompet, dan juga jam tangan dewasa untuk pria dan wanita.">
+    <meta property="og:site_name" content="JIMS HONEY OFFICIAL">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:title" content="Jims Honey Official | Supplier Tas No 1 di Indonesia">
+    <meta name="twitter:description" content="Jims Honey Official Indonesia merupakan brand fashion lokal yang memproduksi tas, dompet, dan juga jam tangan dewasa untuk pria dan wanita.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Dynamic Styles (Hardcoded from home.json) -->
+    <style>
+        :root {
+            --primary-color: #FFB0CD;
+            --primary-hover: #ffc0cb;
+            --primary-soft: rgba(255, 176, 205, 0.15);
+            --secondary-color: #FB97A7;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --border-color: #e0e0e0;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --black: #000000;
+            --transition: all 0.3s ease;
+        }
+        
+        /* General Styles */
+        body {
+            padding-top: 120px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Header Styles */
+        .header-area.sticky {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Product Card Styles */
+        .product-card {
+            transition: var(--transition);
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%;
+            background-color: var(--white);
+            margin-bottom: 20px;
+        }
+        
+        .product-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .product-image img {
+            transition: transform 0.5s ease;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.9);
+            transition: var(--transition);
+            opacity: 0;
+        }
+        
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+        
+        .product-actions button {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0 5px;
+            transition: var(--transition);
+        }
+        
+        .product-actions button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+        }
+        
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .product-category {
+            color: var(--text-light);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .product-title {
+            margin: 8px 0;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        
+        .product-title a:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        /* Badge Styles */
+        .badge {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Error Container -->
+    <div id="error-container" class="d-none"></div>
+    
+    <!-- Header -->
+    <header class="header-area fixed-top">
+        <!-- Top Bar -->
+        <div class="header-top bg-light py-2">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <!-- Language Selector -->
+                            <div class="dropdown me-3">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-1">
+                                    Indonesia
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-lang="id">
+                                        <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-2">Indonesia
+                                    </a></li>
+                                    <li><a class="dropdown-item active" href="#" data-lang="en">
+                                        <img src="https://jimshoneyofficial.co.id/assets/img/flags/en.png" alt="English" width="20" class="me-2">English
+                                    </a></li>
+                                </ul>
+                            </div>
+                            <!-- Currency Selector -->
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Indonesia (Rp)
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-currency="USD">U.S. Dollar ($)</a></li>
+                                    <li><a class="dropdown-item active" href="#" data-currency="IDR">Indonesia (Rp)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end d-none d-md-block">
+                        <a href="#" class="text-decoration-none me-3">Login</a>
+                        <a href="#" class="text-decoration-none">Registration</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="index.html">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50">
+                </a>
+
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" target="_blank">Become Reseller</a>
+                        </li>
+                    </ul>
+
+                    <!-- Header Actions -->
+                    <div class="header-actions d-flex align-items-center">
+                        <!-- Wishlist -->
+                        <a href="#" class="btn btn-link p-2 position-relative">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">0</span>
+                        </a>
+                        <!-- User -->
+                        <div class="dropdown">
+                            <button class="btn btn-link p-2" data-bs-toggle="dropdown">
+                                <i class="far fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="#">Registration</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Slider -->
+        <section class="hero-slider">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/vas7UCyKNR6XuKeHcm3G7QT7dMzkSN3yaYXClhXc.jpg" class="d-block w-100" alt="Slide 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/YK5In61xbQURj1TzrFVH4vz7Y37eCAALmBqWpS7N.jpg" class="d-block w-100" alt="Slide 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/dzUM2iv3K0IahKV9mIshVf8q0QELynQuiMCQTVTJ.jpg" class="d-block w-100" alt="Slide 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/mwCOBBfNRrlppw0BbGj7QIZQNDTJnSqiBsleSKbc.jpg" class="d-block w-100" alt="Slide 4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/nHeVFK59WETSQO9TZnnqm2oGWLyfI0KZKOQPl9an.jpg" class="d-block w-100" alt="Slide 5">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Banner Section -->
+        <section class="banner-section py-5">
+            <div class="container-fluid">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="banner-item">
+                            <a href="#">
+                                <img src="https://jimshoneyofficial.co.id/uploads/all/F17sR3HuFR65LX6dAl9cW9y3oeYUEkFPLYTA0RXz.jpg" class="img-fluid rounded" alt="Bags">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner-item">
+                            <a href="#">
+                                <img src="https://jimshoneyofficial.co.id/uploads/all/hVcPViUU3WMlqteegNg769vbiu7UJVKVhYg6VOTj.jpg" class="img-fluid rounded" alt="Wallets">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner-item">
+                            <a href="#">
+                                <img src="https://jimshoneyofficial.co.id/uploads/all/bePgTk8zaT1NILPnqwSQ4xFZ4mleJ1y8Kycpgi9w.jpg" class="img-fluid rounded" alt="Heels">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner-item">
+                            <a href="#">
+                                <img src="https://jimshoneyofficial.co.id/uploads/all/ZYj2SFA5wnYbaTlK3kIGkzzPwdt36WPQvdu05yuV.jpg" class="img-fluid rounded" alt="Watches">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-products py-5">
+            <div class="container-fluid">
+                <div class="section-header text-center mb-5">
+                    <h2 class="section-title">Featured Products</h2>
+                    <p class="section-subtitle">Check out our featured products</p>
+                </div>
+                <div class="row g-4">
+                    <!-- Featured Product 1 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="feat-1" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 1" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                                <span class="badge bg-success position-absolute top-0 end-0 m-2 px-2 py-1">New</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">BAG</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Featured Product 1</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="old-price text-decoration-line-through text-muted me-2" data-idr="300000" data-usd="19.50">Rp 300.000</span>
+                                    <span class="fw-bold text-primary" data-idr="250000" data-usd="16.25">Rp 250.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Product 2 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="feat-2" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 2" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WALLET</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Featured Product 2</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="150000" data-usd="9.75">Rp 150.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Product 3 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="feat-3" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 3" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                                <span class="badge bg-success position-absolute top-0 end-0 m-2 px-2 py-1">New</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WATCH</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Featured Product 3</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="old-price text-decoration-line-through text-muted me-2" data-idr="400000" data-usd="26.00">Rp 400.000</span>
+                                    <span class="fw-bold text-primary" data-idr="350000" data-usd="22.75">Rp 350.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Product 4 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="feat-4" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 4" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">HEELS</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Featured Product 4</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="280000" data-usd="18.20">Rp 280.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Product 5 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="feat-5" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 5" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">BAG</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Featured Product 5</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="old-price text-decoration-line-through text-muted me-2" data-idr="380000" data-usd="24.70">Rp 380.000</span>
+                                    <span class="fw-bold text-primary" data-idr="320000" data-usd="20.80">Rp 320.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Product 6 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="feat-6" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 6" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WALLET</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Featured Product 6</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="180000" data-usd="11.70">Rp 180.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Product 7 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="feat-7" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 7" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WATCH</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Featured Product 7</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="450000" data-usd="29.25">Rp 450.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Product 8 -->
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Selling Products -->
+        <section class="best-selling py-5 bg-light">
+            <div class="container-fluid">
+                <div class="section-header text-center mb-5">
+                    <h2 class="section-title">Best Selling</h2>
+                    <p class="section-subtitle">Our most popular products</p>
+                </div>
+                <div class="row g-4">
+                    <!-- Best Selling Product 1 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-1" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 1" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WALLET</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 1</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="180000" data-usd="11.70">Rp 180.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Best Selling Product 2 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-2" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 2" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">BAG</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 2</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="old-price text-decoration-line-through text-muted me-2" data-idr="380000" data-usd="24.70">Rp 380.000</span>
+                                    <span class="fw-bold text-primary" data-idr="320000" data-usd="20.80">Rp 320.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Best Selling Product 3 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-3" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 3" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WATCH</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 3</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="450000" data-usd="29.25">Rp 450.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Best Selling Product 4 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-4" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 4" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">HEELS</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 4</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="old-price text-decoration-line-through text-muted me-2" data-idr="320000" data-usd="20.80">Rp 320.000</span>
+                                    <span class="fw-bold text-primary" data-idr="270000" data-usd="17.55">Rp 270.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Best Selling Product 5 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-5" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 5" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">BAG</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 5</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="old-price text-decoration-line-through text-muted me-2" data-idr="300000" data-usd="19.50">Rp 300.000</span>
+                                    <span class="fw-bold text-primary" data-idr="250000" data-usd="16.25">Rp 250.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Best Selling Product 6 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-6" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jim
+shoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 6" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WALLET</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 6</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="150000" data-usd="9.75">Rp 150.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Best Selling Product 7 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-7" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 7" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">WATCH</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 7</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="old-price text-decoration-line-through text-muted me-2" data-idr="400000" data-usd="26.00">Rp 400.000</span>
+                                    <span class="fw-bold text-primary" data-idr="350000" data-usd="22.75">Rp 350.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Best Selling Product 8 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a class="mx-1 quick-view-btn" data-product-id="best-8" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
+                                    <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 8" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">HEELS</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="#" class="text-decoration-none text-dark">Best Seller Product 8</a>
+                                </h5>
+                                <div class="product-price">
+                                    <span class="fw-bold text-primary" data-idr="280000" data-usd="18.20">Rp 280.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Banners -->
+        <section class="info-banners py-5">
+            <div class="container-fluid">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="info-banner text-center">
+                            <a href="#">
+                                <img src="https://jimshoneyofficial.co.id/uploads/all/hVcPViUU3WMlqteegNg769vbiu7UJVKVhYg6VOTj.jpg" class="img-fluid rounded" alt="Info 1">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="info-banner text-center">
+                            <a href="#">
+                                <img src="https://jimshoneyofficial.co.id/uploads/all/hVcPViUU3WMlqteegNg769vbiu7UJVKVhYg6VOTj.jpg" class="img-fluid rounded" alt="Info 2">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="info-banner text-center">
+                            <a href="#">
+                                <img src="https://jimshoneyofficial.co.id/uploads/all/hVcPViUU3WMlqteegNg769vbiu7UJVKVhYg6VOTj.jpg" class="img-fluid rounded" alt="Info 3">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- Newsletter -->
+        <section class="newsletter py-5 bg-primary text-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="newsletter-content">
+                            <h3>Newsletter</h3>
+                            <p>Subscribe here for get every single updates</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Your Email Address" required>
+                                <button class="btn btn-light" type="submit">Subscribe Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-area pt-5 pb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50" class="mb-3">
+                        <p>JIMS HONEY was established in Indonesia since 2014, started as a trading company providing daily fashion item such as bag, wallet and timepiece with the company name as the brand itself.</p>
+                        <div class="contact-info mt-4">
+                            <h5>Got Questions? Call us 24/7!</h5>
+                            <h4 class="text-primary">+62 851-5507-7299</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Contact Info</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <strong>Address:</strong><br>
+                                Ruko Grand Galaxy City RGK 582, Jaka Setia, Bekasi Selatan, West Java 17141
+                            </li>
+                            <li class="mb-3">
+                                <strong>Phone:</strong><br>
+                                +62 851-5507-7299
+                            </li>
+                            <li class="mb-3">
+                                <strong>Email:</strong><br>
+                                <a href="mailto:jimshoneypartnership@gmail.com">jimshoneypartnership@gmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Social Media</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="https://www.instagram.com/jimshoney.jakarta/" target="_blank">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="https://www.tiktok.com/@jims_honey_indonesia" target="_blank">
+                                    <i class="fab fa-tiktok"></i> Tiktok
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15863.816452209454!2d106.9715267!3d-6.2697653!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x317b90e53eb362ef!2sJims%20Honey%20Official%20Store!5e0!3m2!1sen!2sid!4v1652869066752!5m2!1sen!2sid" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="row mt-4 pt-4 border-top">
+                <div class="col-md-6">
+                    <p class="mb-0">Copyright © 2024 JIMS HONEY OFFICIAL</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="BCA" height="30" class="me-2">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="BRI" height="30" class="me-2">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Mandiri" height="30">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <form class="search-form w-75">
+                        <input type="search" class="form-control form-control-lg" placeholder="Search Entire Store...">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Cart Modal -->
+    <div class="modal fade" id="addToCartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Product details will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        /**
+         * Jims Honey - Main JavaScript (Hardcoded version)
+         * Version: 1.0
+         */
+        
+        (function($) {
+            'use strict';
+            
+            // Global variables
+            const CURRENCY_RATES = {
+                'IDR': 1,
+                'USD': 0.000065
+            };
+            
+            let currentCurrency = 'IDR';
+            let cart = [];
+            let wishlist = [];
+            
+            // Initialize when DOM is ready
+            $(document).ready(function() {
+                initPreloader();
+                initNavigation();
+                initProductCards();
+                initBackToTop();
+                initModals();
+                initNewsletter();
+                initLanguageSelector();
+                initCurrencySelector();
+                loadCartFromLocalStorage();
+            });
+            
+            // Preloader
+            function initPreloader() {
+                $(window).on('load', function() {
+                    $('#preloader').fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                });
+                
+                // Fallback if window.load doesn't trigger
+                setTimeout(function() {
+                    $('#preloader').fadeOut('slow');
+                }, 1000);
+            }
+            
+            // Navigation
+            function initNavigation() {
+                // Sticky header on scroll
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 100) {
+                        $('.header-area').addClass('sticky');
+                    } else {
+                        $('.header-area').removeClass('sticky');
+                    }
+                });
+                
+                // Mobile menu enhancements
+                $('.navbar-toggler').click(function() {
+                    $('body').toggleClass('mobile-menu-active');
+                });
+                
+                // Close mobile menu when clicking outside
+                $(document).click(function(e) {
+                    if (!$(e.target).closest('.navbar').length) {
+                        $('.navbar-collapse').collapse('hide');
+                        $('body').removeClass('mobile-menu-active');
+                    }
+                });
+                
+                // Smooth scroll for anchor links
+                $('a[href^="#"]').on('click', function(e) {
+                    e.preventDefault();
+                    const target = $(this.hash);
+                    if (target.length) {
+                        $('html, body').animate({
+                            scrollTop: target.offset().top - 100
+                        }, 800);
+                    }
+                });
+            }
+            
+            // Product Cards
+            function initProductCards() {
+                // Quick view button
+                $(document).on('click', '.quick-view-btn', function(e) {
+                    e.preventDefault();
+                    const productId = $(this).data('product-id');
+                    showProductModal(productId);
+                });
+                
+                // Add to cart button
+                $(document).on('click', '.add-to-cart-btn', function(e) {
+                    e.preventDefault();
+                    const productId = $(this).data('product-id');
+                    addToCart(productId);
+                });
+                
+                // Add to wishlist button
+                $(document).on('click', '.add-to-wishlist-btn', function(e) {
+                    e.preventDefault();
+                    const productId = $(this).data('product-id');
+                    toggleWishlist(productId);
+                });
+            }
+            
+            // Back to Top
+            function initBackToTop() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 300) {
+                        $('#backToTop').addClass('show');
+                    } else {
+                        $('#backToTop').removeClass('show');
+                    }
+                });
+                
+                $('#backToTop').click(function(e) {
+                    e.preventDefault();
+                    $('html, body').animate({scrollTop: 0}, 800);
+                });
+            }
+            
+            // Modals
+            function initModals() {
+                // Search modal focus
+                $('#searchModal').on('shown.bs.modal', function() {
+                    $(this).find('input[type="search"]').focus();
+                });
+                
+                // Search functionality
+                $('.search-form').on('submit', function(e) {
+                    e.preventDefault();
+                    const searchTerm = $(this).find('input').val();
+                    if (searchTerm.trim()) {
+                        window.location.href = `pages/shop.html?search=${encodeURIComponent(searchTerm)}`;
+                    }
+                });
+            }
+            
+            // Newsletter
+            function initNewsletter() {
+                $('.newsletter-form').on('submit', function(e) {
+                    e.preventDefault();
+                    const email = $(this).find('input[type="email"]').val();
+                    
+                    // Show loading state
+                    const $btn = $(this).find('button');
+                    const originalText = $btn.text();
+                    $btn.html('<span class="spinner-border spinner-border-sm me-2"></span> Subscribing...').prop('disabled', true);
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        showNotification('success', 'Successfully subscribed to newsletter!');
+                        $(this).find('input[type="email"]').val('');
+                        $btn.html(originalText).prop('disabled', false);
+                    }, 1500);
+                });
+            }
+            
+            // Language Selector
+            function initLanguageSelector() {
+                $('.dropdown-menu a[data-lang]').click(function(e) {
+                    e.preventDefault();
+                    const lang = $(this).data('lang');
+                    // In a real application, this would change the site language
+                    showNotification('info', `Language changed to ${lang === 'en' ? 'English' : 'Indonesia'}`);
+                });
+            }
+            
+            // Currency Selector
+            function initCurrencySelector() {
+                $('.dropdown-menu a[data-currency]').click(function(e) {
+                    e.preventDefault();
+                    currentCurrency = $(this).data('currency');
+                    updateCurrencyDisplay();
+                    showNotification('info', `Currency changed to ${currentCurrency}`);
+                });
+            }
+            
+            // Update Currency Display
+            function updateCurrencyDisplay() {
+                $('.product-price span').each(function() {
+                    const $this = $(this);
+                    const idrPrice = $this.data('idr');
+                    const usdPrice = $this.data('usd');
+                    
+                    if (currentCurrency === 'USD') {
+                        $this.text(`$${usdPrice.toFixed(2)}`);
+                    } else {
+                        $this.text(`Rp ${formatPrice(idrPrice)}`);
+                    }
+                });
+            }
+            
+            // Format Price
+            function formatPrice(price) {
+                return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+            
+            // Show Product Modal
+            function showProductModal(productId) {
+                // Find product data based on ID
+                const productType = productId.startsWith('feat') ? 'Featured' : 'Best Seller';
+                const productNumber = productId.split('-')[1];
+                
+                // Create sample product data
+                const product = {
+                    id: productId,
+                    name: `${productType} Product ${productNumber}`,
+                    category: ['BAG', 'WALLET', 'WATCH', 'HEELS'][Math.floor(Math.random() * 4)],
+                    price: Math.floor(Math.random() * 300000) + 150000,
+                    description: 'This is a high-quality product from Jims Honey collection.',
+                    colors: ['black', 'pink', 'brown', 'blue'].slice(0, Math.floor(Math.random() * 3) + 1),
+                    sizes: productId.includes('HEELS') ? ['36', '37', '38', '39'] : []
+                };
+                
+                const modalHtml = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" class="img-fluid" alt="${product.name}">
+                        </div>
+                        <div class="col-md-6">
+                            <h3>${product.name}</h3>
+                            <p class="text-muted">${product.category}</p>
+                            <h4 class="text-primary mb-3" data-idr="${product.price}" data-usd="${(product.price * CURRENCY_RATES.USD).toFixed(2)}">
+                                ${currentCurrency === 'USD' ? '$' + (product.price * CURRENCY_RATES.USD).toFixed(2) : 'Rp ' + formatPrice(product.price)}
+                            </h4>
+                            <p>${product.description}</p>
+                            
+                            ${product.colors.length > 0 ? `
+                                <div class="product-colors mb-3">
+                                    <h6>Colors:</h6>
+                                    <div class="d-flex">
+                                        ${product.colors.map(color => `
+                                            <div class="color-option me-2" style="background-color: ${color}; width: 25px; height: 25px; border-radius: 50%; cursor: pointer;" data-color="${color}"></div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            ${product.sizes.length > 0 ? `
+                                <div class="product-sizes mb-3">
+                                    <h6>Sizes:</h6>
+                                    <div class="d-flex">
+                                        ${product.sizes.map(size => `
+                                            <div class="size-option me-2 border px-3 py-1" style="cursor: pointer;" data-size="${size}">${size}</div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            
+                            <div class="product-quantity mb-3">
+                                <h6>Quantity:</h6>
+                                <div class="input-group" style="width: 130px;">
+                                    <button class="btn btn-outline-secondary quantity-minus" type="button">-</button>
+                                    <input type="text" class="form-control text-center quantity-input" value="1">
+                                    <button class="btn btn-outline-secondary quantity-plus" type="button">+</button>
+                                </div>
+                            </div>
+                            
+                            <div class="product-quantity mb-4">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="${product.id}">
+                                        <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+                // <button class="btn btn-outline-primary add-to-wishlist-btn" data-product-id="${product.id}">
+                //                         <i class="far fa-heart"></i>
+                //                     </button>
+                $('#addToCartModal .modal-body').html(modalHtml);
+                
+                // Initialize quantity buttons
+                $('.quantity-plus').click(function() {
+                    const input = $(this).siblings('.quantity-input');
+                    input.val(parseInt(input.val()) + 1);
+                });
+                
+                $('.quantity-minus').click(function() {
+                    const input = $(this).siblings('.quantity-input');
+                    const currentVal = parseInt(input.val());
+                    if (currentVal > 1) {
+                        input.val(currentVal - 1);
+                    }
+                });
+                
+                // Initialize color and size options
+                $('.color-option').click(function() {
+                    $('.color-option').removeClass('selected').css('border', 'none');
+                    $(this).addClass('selected').css('border', '2px solid #333');
+                });
+                
+                $('.size-option').click(function() {
+                    $('.size-option').removeClass('selected').removeClass('bg-primary text-white');
+                    $(this).addClass('selected bg-primary text-white');
+                });
+            }
+            
+            // Add to Cart
+            function addToCart(productId) {
+                const modal = $('#addToCartModal');
+                const name = modal.find('h3').text();
+                const price = modal.find('h4.text-primary').data('idr');
+                const selectedColor = modal.find('.color-option.selected').data('color');
+                const quantity = parseInt(modal.find('.quantity-input').val());
+
+                if (!selectedColor && modal.find('.color-option').length > 0) {
+                    showNotification('error', 'Please select a color.');
+                    return;
+                }
+
+                const cartItem = {
+                    id: productId,
+                    nama: name,
+                    warna: selectedColor || null,
+                    harga: price,
+                    quantity: quantity
+                };
+
+                const existingItemIndex = cart.findIndex(item => item.id === productId && item.warna === cartItem.warna);
+
+                if (existingItemIndex > -1) {
+                    cart[existingItemIndex].quantity += quantity;
+                } else {
+                    cart.push(cartItem);
+                }
+
+                saveCartToLocalStorage();
+                updateCartCount();
+                showNotification('success', 'Product added to cart!');
+                
+                $('#addToCartModal').modal('hide');
+            }
+
+            // Save cart to local storage
+            function saveCartToLocalStorage() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            // Load cart from local storage
+            function loadCartFromLocalStorage() {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                    updateCartCount();
+                }
+            }
+            
+            // Toggle Wishlist
+            function toggleWishlist(productId) {
+                const index = wishlist.indexOf(productId);
+                
+                if (index > -1) {
+                    wishlist.splice(index, 1);
+                    showNotification('info', 'Product removed from wishlist');
+                } else {
+                    wishlist.push(productId);
+                    showNotification('success', 'Product added to wishlist!');
+                }
+                
+                updateWishlistCount();
+            }
+            
+            // Update Cart Count
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                $('.header-actions .fa-shopping-cart').siblings('.badge').text(totalItems);
+            }
+            
+            // Update Wishlist Count
+            function updateWishlistCount() {
+                $('.header-actions .fa-heart').siblings('.badge').text(wishlist.length);
+            }
+            
+            // Show Notification
+            function showNotification(type, message) {
+                const alertClass = type === 'success' ? 'alert-success' : 
+                                  type === 'error' ? 'alert-danger' : 
+                                  type === 'info' ? 'alert-info' : 'alert-warning';
+                
+                const notification = $(`
+                    <div class="alert ${alertClass} alert-dismissible fade show notification" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `);
+                
+                $('body').append(notification);
+                
+                // Auto dismiss after 3 seconds
+                setTimeout(() => {
+                    notification.alert('close');
+                }, 3000);
+            }
+            
+        })(jQuery);
+    </script>
+</body>
+</html>
