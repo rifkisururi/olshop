@@ -1,21 +1,70 @@
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using olshop.Models;
+using olshop.Data;
+using olshop.Extensions;
 
 namespace olshop.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IProductRepository _productRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IProductRepository productRepository)
     {
         _logger = logger;
+        _productRepository = productRepository;
     }
 
     public IActionResult Index()
     {
         return View();
+    }
+
+    public async Task<IActionResult> DetailProduk(int id)
+    {
+        var product = await _productRepository.GetProductByIdAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+        
+        // Get related products (same category)
+        var relatedProducts = await _productRepository.GetProductsByCategoryAsync(product.Category);
+        ViewData["RelatedProducts"] = relatedProducts.Where(p => p.Id != id).Take(4);
+        
+        // Handle recently viewed products (using session)
+        var recentlyViewed = HttpContext.Session.Get<List<int>>("RecentlyViewed") ?? new List<int>();
+        if (!recentlyViewed.Contains(id))
+        {
+            recentlyViewed.Insert(0, id);
+            if (recentlyViewed.Count > 4)
+            {
+                recentlyViewed = recentlyViewed.Take(4).ToList();
+            }
+        }
+        HttpContext.Session.Set("RecentlyViewed", recentlyViewed);
+        
+        if (recentlyViewed.Count > 1) // Don't include current product
+        {
+            var recentProducts = new List<Product>();
+            foreach (var recentId in recentlyViewed.Where(rid => rid != id).Take(4))
+            {
+                var recentProduct = await _productRepository.GetProductByIdAsync(recentId);
+                if (recentProduct != null)
+                {
+                    recentProducts.Add(recentProduct);
+                }
+            }
+            ViewData["RecentlyViewed"] = recentProducts;
+        }
+        
+        return View(product);
     }
 
     public IActionResult Privacy()

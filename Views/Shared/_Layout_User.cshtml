@@ -1,0 +1,368 @@
+@{
+    var currentYear = DateTime.Now.Year;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>@ViewData["Title"] - Jims Honey Official</title>
+    <meta name="description" content="Jims Honey Official Indonesia merupakan brand fashion lokal yang memproduksi tas, dompet, dan juga jam tangan dewasa untuk pria dan wanita.">
+    <meta name="keywords" content="fashion, Jims Honey, supplier tas, join reseller jimshoney, reseller jimshoney, supplier jimshoney, jimshoney pusat, tas wanita, dompet wanita, powerbank, jam tangan, supplier jam tangan, supplier jam, supplier powerbank, grosir jimshoney, jimshoney official, jimshoney indonesia, supplier dompet, wholesale, jualan grosir, join reseller, dropship jimshoney, dropship, retail, fashion bags, style, lokal brand indonesia, dropshipper, belajar bisnis">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="@ViewData["Title"] - Jims Honey Official">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jimshoneyofficial.co.id">
+    <meta property="og:description" content="Jims Honey Official Indonesia merupakan brand fashion lokal yang memproduksi tas, dompet, dan juga jam tangan dewasa untuk pria dan wanita.">
+    <meta property="og:site_name" content="JIMS HONEY OFFICIAL">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:title" content="@ViewData["Title"] - Jims Honey Official">
+    <meta name="twitter:description" content="Jims Honey Official Indonesia merupakan brand fashion lokal yang memproduksi tas, dompet, dan juga jam tangan dewasa untuk pria dan wanita.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/home/css/style.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/home/css/responsive.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/home/css/cart.css" asp-append-version="true">
+    
+    <!-- Dynamic Styles -->
+    <style>
+        :root {
+            --primary-color: #FFB0CD;
+            --primary-hover: #ffc0cb;
+            --primary-soft: rgba(255, 176, 205, 0.15);
+            --secondary-color: #FB97A7;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --border-color: #e0e0e0;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --black: #000000;
+            --transition: all 0.3s ease;
+        }
+
+        /* General Styles */
+        body {
+            padding-top: 120px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Header Styles */
+        .header-area.sticky {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @@keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+    
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Container -->
+    <div id="error-container" class="d-none"></div>
+
+    <!-- Header -->
+    <header class="header-area fixed-top">
+        <!-- Top Bar -->
+        <div class="header-top bg-light py-2">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <!-- Language Selector -->
+                            <div class="dropdown me-3">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-1">
+                                    Indonesia
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="#" data-lang="id">
+                                            <img src="https://jimshoneyofficial.co.id/assets/img/flags/id.png" alt="Indonesia" width="20" class="me-2">Indonesia
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item active" href="#" data-lang="en">
+                                            <img src="https://jimshoneyofficial.co.id/assets/img/flags/en.png" alt="English" width="20" class="me-2">English
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Currency Selector -->
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Indonesia (Rp)
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-currency="USD">U.S. Dollar ($)</a></li>
+                                    <li><a class="dropdown-item active" href="#" data-currency="IDR">Indonesia (Rp)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end d-none d-md-block">
+                        <a asp-controller="Account" asp-action="Login" class="text-decoration-none me-3">Login</a>
+                        <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Registration</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50">
+                </a>
+
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Shop" ? "active" : "")" asp-controller="Home" asp-action="Shop">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" target="_blank">Become Reseller</a>
+                        </li>
+                    </ul>
+
+                    <!-- Header Actions -->
+                    <div class="header-actions d-flex align-items-center">
+                        <!-- Cart -->
+                        <a href="#" class="btn btn-link p-2 position-relative cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" id="cart-count-badge">0</span>
+                        </a>
+                        <!-- User -->
+                        <div class="dropdown">
+                            <button class="btn btn-link p-2" data-bs-toggle="dropdown">
+                                <i class="far fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Login">Login</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Register">Registration</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-area pt-5 pb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Jims Honey" height="50" class="mb-3">
+                        <p>JIMS HONEY was established in Indonesia since 2014, started as a trading company providing daily fashion item such as bag, wallet and timepiece with the company name as the brand itself.</p>
+                        <div class="contact-info mt-4">
+                            <h5>Got Questions? Call us 24/7!</h5>
+                            <h4 class="text-primary">+62 851-5507-7299</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Contact Info</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <strong>Address:</strong><br>
+                                Ruko Grand Galaxy City RGK 582, Jaka Setia, Bekasi Selatan, West Java 17141
+                            </li>
+                            <li class="mb-3">
+                                <strong>Phone:</strong><br>
+                                +62 851-5507-7299
+                            </li>
+                            <li class="mb-3">
+                                <strong>Email:</strong><br>
+                                <a href="mailto:jimshoneypartnership@gmail.com">jimshoneypartnership@gmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4>Social Media</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="https://www.instagram.com/jimshoney.jakarta/" target="_blank">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="https://www.tiktok.com/@@jims_honey_indonesia" target="_blank">
+                                    <i class="fab fa-tiktok"></i> Tiktok
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15863.816452209454!2d106.9715267!3d-6.2697653!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x317b90e53eb362ef!2sJims%20Honey%20Official%20Store!5e0!3m2!1sen!2sid!4v1652869066752!5m2!1sen!2sid"
+                                width="100%"
+                                height="300"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row mt-4 pt-4 border-top">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; @currentYear JIMS HONEY OFFICIAL</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="BCA" height="30" class="me-2">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="BRI" height="30" class="me-2">
+                    <img src="https://jimshoneyofficial.co.id/uploads/all/EFoUwwpiyJk6HGrKon10AZmUxCLZeAzOMUUE8VKC.png" alt="Mandiri" height="30">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <form class="search-form w-75">
+                        <input type="search" class="form-control form-control-lg" placeholder="Search Entire Store...">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Cart Modal -->
+    <div class="modal fade" id="addToCartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Product details will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/home/js/main.js" asp-append-version="true"></script>
+    <script src="~/home/js/cart.js" asp-append-version="true"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

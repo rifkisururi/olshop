@@ -1,0 +1,922 @@
+# Product Detail Page Implementation Plan
+
+## Overview
+This document outlines the implementation plan for creating a comprehensive product detail page at `Home/detailProduk?id=1` that inherits from `_Layout_User.cshtml`. The page will display all product information including images, specifications, pricing, availability, user reviews, and related items, with responsive design, breadcrumb navigation, add-to-cart functionality with quantity selection, social sharing options, and a recently viewed products section.
+
+## Implementation Tasks
+
+### 1. Update HomeController with DetailProduk Action Method
+
+We need to add a new action method to the HomeController that will:
+- Accept a product ID parameter
+- Retrieve the product details from the repository
+- Return the view with the product data
+- Handle cases where the product doesn't exist
+
+```csharp
+public async Task<IActionResult> DetailProduk(int id)
+{
+    var product = await _productRepository.GetProductByIdAsync(id);
+    if (product == null)
+    {
+        return NotFound();
+    }
+    
+    // Get related products (same category)
+    var relatedProducts = await _productRepository.GetProductsByCategoryAsync(product.Category);
+    ViewData["RelatedProducts"] = relatedProducts.Where(p => p.Id != id).Take(4);
+    
+    // Handle recently viewed products (using session)
+    var recentlyViewed = HttpContext.Session.Get<List<int>>("RecentlyViewed") ?? new List<int>();
+    if (!recentlyViewed.Contains(id))
+    {
+        recentlyViewed.Insert(0, id);
+        if (recentlyViewed.Count > 4)
+        {
+            recentlyViewed = recentlyViewed.Take(4).ToList();
+        }
+    }
+    HttpContext.Session.Set("RecentlyViewed", recentlyViewed);
+    
+    if (recentlyViewed.Count > 1) // Don't include current product
+    {
+        var recentProducts = new List<Product>();
+        foreach (var recentId in recentlyViewed.Where(rid => rid != id).Take(4))
+        {
+            var recentProduct = await _productRepository.GetProductByIdAsync(recentId);
+            if (recentProduct != null)
+            {
+                recentProducts.Add(recentProduct);
+            }
+        }
+        ViewData["RecentlyViewed"] = recentProducts;
+    }
+    
+    return View(product);
+}
+```
+
+### 2. Create DetailProduk.cshtml View
+
+The view will inherit from _Layout_User.cshtml and will be structured into several sections:
+- Breadcrumb navigation
+- Product image gallery and main info
+- Product specifications
+- Add to cart section
+- Reviews section
+- Related products
+- Recently viewed products
+
+### 3. Breadcrumb Navigation
+
+```html
+<nav aria-label="breadcrumb" class="bg-light py-2 mb-4">
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Home/Shop">Shop</a></li>
+            <li class="breadcrumb-item"><a href="/Home/Shop?category=@Model.Category">@Model.Category</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+        </ol>
+    </div>
+</nav>
+```
+
+### 4. Main Product View Section
+
+This section will include:
+- Image gallery with main image and thumbnails
+- Product name, category, and rating
+- Brief description
+- Price information
+
+We'll use a responsive grid layout with:
+- Left side: Image gallery (col-md-6)
+- Right side: Product information (col-md-6)
+
+```html
+<section class="product-detail py-5">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Product Images -->
+            <div class="col-md-6 mb-4">
+                <div class="product-gallery">
+                    <div class="main-image mb-3">
+                        <img src="@Model.ImageUrl" id="main-product-image" class="img-fluid rounded" alt="@Model.Name">
+                    </div>
+                    <div class="thumbnails row g-2">
+                        <div class="col-3">
+                            <img src="@Model.ImageUrl" class="img-fluid rounded thumbnail active" data-image="@Model.ImageUrl" alt="@Model.Name">
+                        </div>
+                        @foreach (var image in Model.GalleryImages)
+                        {
+                            <div class="col-3">
+                                <img src="@image" class="img-fluid rounded thumbnail" data-image="@image" alt="@Model.Name">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Info -->
+            <div class="col-md-6">
+                <div class="product-info">
+                    <h1 class="product-title mb-2">@Model.Name</h1>
+                    <div class="product-category text-muted mb-2">@Model.Category</div>
+                    
+                    <div class="product-rating mb-3">
+                        <div class="stars">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= Math.Floor(Model.Rating))
+                                {
+                                    <i class="fas fa-star text-warning"></i>
+                                }
+                                else if (i - Model.Rating < 1 && i - Model.Rating > 0)
+                                {
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-star text-warning"></i>
+                                }
+                            }
+                        </div>
+                        <span class="rating-count ms-2">(@Model.ReviewCount Reviews)</span>
+                    </div>
+                    
+                    <div class="product-price mb-3">
+                        @if (Model.OldPrice.HasValue && Model.OldPrice > Model.Price)
+                        {
+                            <span class="old-price text-decoration-line-through text-muted me-2">Rp @Model.OldPrice.Value.ToString("N0")</span>
+                        }
+                        <span class="current-price fw-bold text-primary">Rp @Model.Price.ToString("N0")</span>
+                    </div>
+                    
+                    <div class="product-status mb-3">
+                        <span class="badge @(Model.Status == "In Stock" ? "bg-success" : (Model.Status == "Low Stock" ? "bg-warning" : "bg-danger"))">
+                            @Model.Status
+                        </span>
+                    </div>
+                    
+                    <div class="product-short-description mb-4">
+                        <p>@(Model.Description?.Length > 200 ? Model.Description.Substring(0, 200) + "..." : Model.Description)</p>
+                    </div>
+                    
+                    <!-- Add to Cart Section -->
+                    <form class="add-to-cart-form mb-4">
+                        @if (Model.Colors != null && Model.Colors.Any())
+                        {
+                            <div class="product-colors mb-3">
+                                <label class="form-label">Color:</label>
+                                <div class="color-options">
+                                    @foreach (var color in Model.Colors)
+                                    {
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="color" id="color-@color.ToLower()" value="@color">
+                                            <label class="form-check-label" for="color-@color.ToLower()">@color</label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        
+                        <div class="product-quantity mb-3">
+                            <label class="form-label">Quantity:</label>
+                            <div class="input-group quantity-selector" style="width: 130px;">
+                                <button type="button" class="btn btn-outline-secondary quantity-minus">-</button>
+                                <input type="number" class="form-control text-center quantity-input" value="1" min="1" max="99">
+                                <button type="button" class="btn btn-outline-secondary quantity-plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="@Model.Id">
+                                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary ms-2 add-to-wishlist-btn" data-product-id="@Model.Id">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Social Sharing -->
+                    <div class="social-sharing mb-4">
+                        <label class="form-label">Share:</label>
+                        <div class="social-buttons">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.Path)" target="_blank" class="btn btn-sm btn-outline-primary">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url=@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.Path)&text=@Model.Name" target="_blank" class="btn btn-sm btn-outline-info">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://pinterest.com/pin/create/button/?url=@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.Path)&media=@Model.ImageUrl&description=@Model.Name" target="_blank" class="btn btn-sm btn-outline-danger">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+                            <a href="https://api.whatsapp.com/send?text=@Model.Name @(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.Path)" target="_blank" class="btn btn-sm btn-outline-success">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="mailto:?subject=@Model.Name&body=Check out this product: @(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.Path)" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Tags -->
+                    @if (Model.Tags != null && Model.Tags.Any())
+                    {
+                        <div class="product-tags">
+                            <label class="form-label">Tags:</label>
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <a href="/Home/Shop?tag=@tag" class="badge bg-light text-dark text-decoration-none me-1">@tag</a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+### 5. Product Specifications Section
+
+This will display detailed product information in a tabbed interface:
+- Description tab (full product description)
+- Specifications tab (material, dimensions, weight)
+- Features tab (list of product features)
+- Reviews tab (user reviews)
+
+```html
+<section class="product-details py-5 bg-light">
+    <div class="container-fluid">
+        <ul class="nav nav-tabs" id="productDetailTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Specifications</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="false">Features</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews (@Model.ReviewCount)</button>
+            </li>
+        </ul>
+        <div class="tab-content p-4 bg-white" id="productDetailTabsContent">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <p>@Html.Raw(Model.Description)</p>
+            </div>
+            <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            @if (!string.IsNullOrEmpty(Model.Material))
+                            {
+                                <tr>
+                                    <th style="width: 30%">Material</th>
+                                    <td>@Model.Material</td>
+                                </tr>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Dimensions))
+                            {
+                                <tr>
+                                    <th>Dimensions</th>
+                                    <td>@Model.Dimensions</td>
+                                </tr>
+                            }
+                            <tr>
+                                <th>Weight</th>
+                                <td>@Model.Weight g</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="features" role="tabpanel" aria-labelledby="features-tab">
+                @if (Model.Features != null && Model.Features.Any())
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var feature in Model.Features)
+                        {
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>@feature
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted">No features specified for this product.</p>
+                }
+            </div>
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="review-summary text-center p-4 border rounded">
+                            <h4 class="mb-3">Customer Reviews</h4>
+                            <div class="overall-rating mb-3">
+                                <span class="display-4">@Model.Rating.ToString("0.0")</span>
+                                <div class="stars my-2">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= Math.Floor(Model.Rating))
+                                        {
+                                            <i class="fas fa-star text-warning"></i>
+                                        }
+                                        else if (i - Model.Rating < 1 && i - Model.Rating > 0)
+                                        {
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-star text-warning"></i>
+                                        }
+                                    }
+                                </div>
+                                <p class="text-muted">Based on @Model.ReviewCount reviews</p>
+                            </div>
+                            <div class="rating-breakdown">
+                                <div class="rating-item d-flex align-items-center mb-2">
+                                    <span class="me-2">5 Star</span>
+                                    <div class="progress flex-grow-1" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                    </div>
+                                    <span class="ms-2">70%</span>
+                                </div>
+                                <div class="rating-item d-flex align-items-center mb-2">
+                                    <span class="me-2">4 Star</span>
+                                    <div class="progress flex-grow-1" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 20%"></div>
+                                    </div>
+                                    <span class="ms-2">20%</span>
+                                </div>
+                                <div class="rating-item d-flex align-items-center mb-2">
+                                    <span class="me-2">3 Star</span>
+                                    <div class="progress flex-grow-1" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 5%"></div>
+                                    </div>
+                                    <span class="ms-2">5%</span>
+                                </div>
+                                <div class="rating-item d-flex align-items-center mb-2">
+                                    <span class="me-2">2 Star</span>
+                                    <div class="progress flex-grow-1" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 3%"></div>
+                                    </div>
+                                    <span class="ms-2">3%</span>
+                                </div>
+                                <div class="rating-item d-flex align-items-center mb-2">
+                                    <span class="me-2">1 Star</span>
+                                    <div class="progress flex-grow-1" style="height: 8px;">
+                                        <div class="progress-bar bg-warning" style="width: 2%"></div>
+                                    </div>
+                                    <span class="ms-2">2%</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-primary mt-3" data-bs-toggle="modal" data-bs-target="#writeReviewModal">
+                                Write a Review
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="reviews-list">
+                            <!-- Sample reviews - in a real app, these would come from a database -->
+                            <div class="review-item mb-4 p-3 border-bottom">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <div class="reviewer-info">
+                                        <h5 class="mb-0">John Doe</h5>
+                                        <div class="text-muted small">Posted on June 15, 2025</div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    </div>
+                                </div>
+                                <h6 class="review-title">Great product!</h6>
+                                <p class="review-text">This is exactly what I was looking for. The quality is excellent and it arrived quickly.</p>
+                            </div>
+                            
+                            <div class="review-item mb-4 p-3 border-bottom">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <div class="reviewer-info">
+                                        <h5 class="mb-0">Jane Smith</h5>
+                                        <div class="text-muted small">Posted on June 10, 2025</div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                    </div>
+                                </div>
+                                <h6 class="review-title">Good value</h6>
+                                <p class="review-text">The product is good for the price. I would recommend it to others looking for something similar.</p>
+                            </div>
+                            
+                            <!-- More reviews would go here -->
+                            
+                            <div class="text-center mt-4">
+                                <button class="btn btn-outline-secondary">Load More Reviews</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+### 6. Related Products Section
+
+```html
+<section class="related-products py-5">
+    <div class="container-fluid">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Related Products</h2>
+            <p class="section-subtitle">You might also like these products</p>
+        </div>
+        
+        <div class="row g-4">
+            @if (ViewData["RelatedProducts"] != null)
+            {
+                foreach (var relatedProduct in (IEnumerable<Product>)ViewData["RelatedProducts"])
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a href="/Home/DetailProduk?id=@relatedProduct.Id">
+                                    <img src="@relatedProduct.ImageUrl" alt="@relatedProduct.Name" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                @if (relatedProduct.OldPrice.HasValue && relatedProduct.OldPrice > relatedProduct.Price)
+                                {
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                                }
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">@relatedProduct.Category</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="/Home/DetailProduk?id=@relatedProduct.Id" class="text-decoration-none text-dark">@relatedProduct.Name</a>
+                                </h5>
+                                <div class="product-price">
+                                    @if (relatedProduct.OldPrice.HasValue && relatedProduct.OldPrice > relatedProduct.Price)
+                                    {
+                                        <span class="old-price text-decoration-line-through text-muted me-2">Rp @relatedProduct.OldPrice.Value.ToString("N0")</span>
+                                    }
+                                    <span class="fw-bold text-primary">Rp @relatedProduct.Price.ToString("N0")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>No related products found.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+```
+
+### 7. Recently Viewed Products Section
+
+```html
+<section class="recently-viewed py-5 bg-light">
+    <div class="container-fluid">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Recently Viewed</h2>
+            <p class="section-subtitle">Products you've viewed recently</p>
+        </div>
+        
+        <div class="row g-4">
+            @if (ViewData["RecentlyViewed"] != null && ((IEnumerable<Product>)ViewData["RecentlyViewed"]).Any())
+            {
+                foreach (var recentProduct in (IEnumerable<Product>)ViewData["RecentlyViewed"])
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a href="/Home/DetailProduk?id=@recentProduct.Id">
+                                    <img src="@recentProduct.ImageUrl" alt="@recentProduct.Name" class="img-fluid w-100" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">@recentProduct.Category</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="/Home/DetailProduk?id=@recentProduct.Id" class="text-decoration-none text-dark">@recentProduct.Name</a>
+                                </h5>
+                                <div class="product-price">
+                                    @if (recentProduct.OldPrice.HasValue && recentProduct.OldPrice > recentProduct.Price)
+                                    {
+                                        <span class="old-price text-decoration-line-through text-muted me-2">Rp @recentProduct.OldPrice.Value.ToString("N0")</span>
+                                    }
+                                    <span class="fw-bold text-primary">Rp @recentProduct.Price.ToString("N0")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>No recently viewed products.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+```
+
+### 8. Write Review Modal
+
+```html
+<!-- Write Review Modal -->
+<div class="modal fade" id="writeReviewModal" tabindex="-1" aria-labelledby="writeReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="writeReviewModalLabel">Write a Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reviewForm">
+                    <input type="hidden" name="productId" value="@Model.Id">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Rating</label>
+                        <div class="rating-input">
+                            <i class="far fa-star rating-star" data-rating="1"></i>
+                            <i class="far fa-star rating-star" data-rating="2"></i>
+                            <i class="far fa-star rating-star" data-rating="3"></i>
+                            <i class="far fa-star rating-star" data-rating="4"></i>
+                            <i class="far fa-star rating-star" data-rating="5"></i>
+                            <input type="hidden" name="rating" id="ratingInput" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="reviewTitle" class="form-label">Review Title</label>
+                        <input type="text" class="form-control" id="reviewTitle" name="title" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label">Your Review</label>
+                        <textarea class="form-control" id="reviewText" name="text" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="reviewerName" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="reviewerName" name="name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="reviewerEmail" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="reviewerEmail" name="email" required>
+                        <div class="form-text">Your email will not be published.</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitReview">Submit Review</button>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+### 9. CSS Styles for Product Detail Page
+
+We'll need to add some custom CSS for the product detail page. This can be added to a new file or to an existing CSS file.
+
+```css
+/* Product Gallery Styles */
+.product-gallery .main-image {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.product-gallery .thumbnails .thumbnail {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.product-gallery .thumbnails .thumbnail.active,
+.product-gallery .thumbnails .thumbnail:hover {
+    border-color: var(--primary-color);
+}
+
+/* Quantity Selector Styles */
+.quantity-selector .quantity-input {
+    border-left: 0;
+    border-right: 0;
+}
+
+/* Product Tabs Styles */
+.nav-tabs .nav-link {
+    color: var(--text-dark);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Rating Stars Styles */
+.rating-input .rating-star {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ddd;
+    margin-right: 5px;
+}
+
+.rating-input .rating-star.active {
+    color: var(--warning);
+}
+
+/* Responsive Styles */
+@media (max-width: 767.98px) {
+    .product-gallery {
+        margin-bottom: 2rem;
+    }
+    
+    .product-info {
+        padding-top: 1rem;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+    }
+    
+    .product-actions .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+```
+
+### 10. JavaScript for Product Detail Page
+
+```javascript
+/**
+ * Product Detail Page JavaScript
+ * Handles interactive features like image gallery, quantity selection, add to cart, etc.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    // Image Gallery
+    initImageGallery();
+    
+    // Quantity Selector
+    initQuantitySelector();
+    
+    // Add to Cart
+    initAddToCart();
+    
+    // Rating System
+    initRatingSystem();
+    
+    // Product Tabs
+    // Bootstrap handles this automatically
+});
+
+/**
+ * Initialize the product image gallery
+ */
+function initImageGallery() {
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const mainImage = document.getElementById('main-product-image');
+    
+    if (!thumbnails.length || !mainImage) return;
+    
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            // Update main image
+            mainImage.src = this.getAttribute('data-image');
+            
+            // Update active state
+            thumbnails.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
+
+/**
+ * Initialize the quantity selector
+ */
+function initQuantitySelector() {
+    const minusBtn = document.querySelector('.quantity-minus');
+    const plusBtn = document.querySelector('.quantity-plus');
+    const quantityInput = document.querySelector('.quantity-input');
+    
+    if (!minusBtn || !plusBtn || !quantityInput) return;
+    
+    minusBtn.addEventListener('click', function() {
+        let value = parseInt(quantityInput.value);
+        if (value > 1) {
+            quantityInput.value = value - 1;
+        }
+    });
+    
+    plusBtn.addEventListener('click', function() {
+        let value = parseInt(quantityInput.value);
+        if (value < 99) {
+            quantityInput.value = value + 1;
+        }
+    });
+    
+    quantityInput.addEventListener('change', function() {
+        let value = parseInt(this.value);
+        if (isNaN(value) || value < 1) {
+            this.value = 1;
+        } else if (value > 99) {
+            this.value = 99;
+        }
+    });
+}
+
+/**
+ * Initialize add to cart functionality
+ */
+function initAddToCart() {
+    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+    const wishlistBtn = document.querySelector('.add-to-wishlist-btn');
+    
+    if (!addToCartBtn) return;
+    
+    addToCartBtn.addEventListener('click', function() {
+        const productId = this.getAttribute('data-product-id');
+        const quantity = document.querySelector('.quantity-input').value;
+        let color = '';
+        
+        // Get selected color if color options exist
+        const colorRadios = document.querySelectorAll('input[name="color"]');
+        if (colorRadios.length) {
+            colorRadios.forEach(radio => {
+                if (radio.checked) {
+                    color = radio.value;
+                }
+            });
+        }
+        
+        // Add to cart logic
+        addProductToCart(productId, quantity, color);
+    });
+    
+    if (wishlistBtn) {
+        wishlistBtn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            addProductToWishlist(productId);
+        });
+    }
+}
+
+/**
+ * Add product to cart
+ */
+function addProductToCart(productId, quantity, color) {
+    // In a real application, this would make an AJAX call to the server
+    // For demo purposes, we'll just show a notification
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'notification alert alert-success alert-dismissible fade show';
+    notification.innerHTML = `
+        <strong>Success!</strong> Product added to cart.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Update cart count
+    const cartCountBadge = document.getElementById('cart-count-badge');
+    if (cartCountBadge) {
+        let currentCount = parseInt(cartCountBadge.textContent);
+        cartCountBadge.textContent = currentCount + parseInt(quantity);
+    }
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+    
+    console.log(`Added product ${productId} to cart. Quantity: ${quantity}, Color: ${color}`);
+}
+
+/**
+ * Add product to wishlist
+ */
+function addProductToWishlist(productId) {
+    // In a real application, this would make an AJAX call to the server
+    // For demo purposes, we'll just show a notification
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'notification alert alert-info alert-dismissible fade show';
+    notification.innerHTML = `
+        <strong>Success!</strong> Product added to wishlist.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+    
+    console.log(`Added product ${productId} to wishlist`);
+}
+
+/**
+ * Initialize rating system for review form
+ */
+function initRatingSystem() {
+    const ratingStars = document.querySelectorAll('.rating-star');
+    const ratingInput = document.getElementById('ratingInput');
+    
+    if (!ratingStars.length || !ratingInput) return;
+    
+    ratingStars.forEach(star => {
+        star.addEventListener('mouseover', function() {
+            const rating = parseInt(this.getAttribute('data-rating'));
+            highlightStars(rating);
+        });
+        
+        star.addEventListener('mouseout', function() {
+            const currentRating = parseInt(ratingInput.value);
+            highlightStars(currentRating);
+        });
+        
+        star.addEventListener('click', function() {
+            const rating = parseInt(this.getAttribute('data-rating'));
+            ratingInput.value = rating;
+            highlightStars(rating);
+        });
+    });
+    
+    function highlightStars(rating) {
+        ratingStars.forEach(star => {
+            const starRating = parseInt(star.getAttribute('data-rating'));
+            if (starRating <= rating) {
+                star.classList.remove('far');
+                star.classList.add('fas');
+                star.classList.add('active');
+            } else {
+                star.classList.remove('fas');
+                star.classList.add('far');
+                star.classList.remove('active');
+            }
+        });
+    }
+    
+    // Submit review
+    const submitReviewBtn = document.getElementById('submitReview');
+    if (submitReviewBtn) {
+        submitReviewBtn.addEventListener('click', function() {
+            const form = document.getElementById('reviewForm');
+            if (form.checkValidity()) {
+                // In a real application, this would submit the form via AJAX
+                alert('Thank you for your review! It will be published after moderation.');
+                
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('writeReviewModal'));
+                modal.hide();
+                
+                // Reset form
+                form.reset();
+                highlightStars(0);
+            } else {
+                form.reportValidity();
+            }
+        });
+    }
+}
+```
+
+## Implementation Steps
+
+1. First, update the HomeController to add the DetailProduk action method
+2. Create the DetailProduk.cshtml view in the Home folder
+3. Add the necessary CSS styles to the site.css or create a new CSS file
+4. Create the JavaScript file for the product detail page functionality
+5. Test the page with a sample product (ID=1)
+6. Verify all features are working correctly
+7. Ensure the page is responsive on all device sizes
+
+## Conclusion
+
+This implementation plan provides a comprehensive approach to creating a detailed product page that meets all the requirements. The page will be responsive, user-friendly, and include all the requested features such as image gallery, specifications, pricing, availability, user reviews, add-to-cart functionality, social sharing, and related/recently viewed products.

@@ -3,6 +3,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add session services
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 // Register database services
 builder.Services.AddSingleton<olshop.Data.IDatabaseConnectionFactory, olshop.Data.DatabaseConnectionFactory>();
 builder.Services.AddSingleton<olshop.Data.ISqlQueryProvider, olshop.Data.SqlQueryProvider>();
@@ -22,6 +31,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(
