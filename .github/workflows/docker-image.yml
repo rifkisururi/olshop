@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - master  # Ini akan berjalan ketika ada push ke branch "main"
+      - main  
   pull_request:
     branches:
       - master  # Ini akan berjalan ketika ada pull request ke branch "main"
+      - main
 
 jobs:
   build:
