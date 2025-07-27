@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # ASP.NET Core application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      # Uncomment and configure one of the connection strings below based on your preferred database
+      # - ConnectionStrings__DefaultConnection=Server=mysql;Database=olshop;User=olshop_user;Password=your_password;
+      # - ConnectionStrings__DefaultConnection=Host=postgres;Database=olshop;Username=olshop_user;Password=your_password;
+      # - ConnectionStrings__DefaultConnection=Data Source=/app/data/olshop.db;
+    volumes:
+      - app_data:/app/data
+    depends_on:
+      # Uncomment the database service you want to use
+      # - mysql
+      # - postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - olshop_network
+
+  # MySQL Database (uncomment if using MySQL)
+  # mysql:
+  #   image: mysql:8.0
+  #   environment:
+  #     - MYSQL_DATABASE=olshop
+  #     - MYSQL_USER=olshop_user
+  #     - MYSQL_PASSWORD=your_password
+  #     - MYSQL_ROOT_PASSWORD=root_password
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #     - ./db/mysql_schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+  #     - ./db/mysql_seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
+  #   ports:
+  #     - "3306:3306"
+  #   restart: unless-stopped
+  #   networks:
+  #     - olshop_network
+
+  # PostgreSQL Database (uncomment if using PostgreSQL)
+  # postgres:
+  #   image: postgres:15
+  #   environment:
+  #     - POSTGRES_DB=olshop
+  #     - POSTGRES_USER=olshop_user
+  #     - POSTGRES_PASSWORD=your_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #     - ./db/postgresql_schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+  #     - ./db/postgresql_seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+  #   networks:
+  #     - olshop_network
+
+  # SQLite (no separate service needed, just uncomment the volume mount in the app service)
+  # For SQLite, the database file will be stored in the app_data volume
+
+networks:
+  olshop_network:
+    driver: bridge
+
+volumes:
+  app_data:
+  # mysql_data:
+  # postgres_data:

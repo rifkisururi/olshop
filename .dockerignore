@@ -1,0 +1,70 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+docker-readme.md
+
+# Build artifacts
+bin/
+obj/
+out/
+publish/
+*.user
+*.suo
+*.userosscache
+*.dbmdl
+*.jfm
+*.pfx
+*.publishsettings
+
+# Development files
+.vs/
+.vscode/
+*.sln.docstates
+*.sln.ide
+*.DotSettings
+*.DotSettings.user
+*.editorconfig
+*.ruleset
+
+# Documentation
+*.md
+LICENSE
+*.txt
+*.pdf
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Node.js (if used for frontend)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Test files
+[Tt]est*/
+[Tt]ests/
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+*.testlog
+
+# Local configuration
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+!appsettings.Production.json
+
+# Misc
+.DS_Store
+Thumbs.db
+desktop.ini

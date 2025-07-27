@@ -1,7 +1,13 @@
+using olshop.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add health checks
+builder.Services.AddHealthChecks()
+    .AddCheck<DatabaseHealthCheck>("database_health_check");
 
 // Add session services
 builder.Services.AddDistributedMemoryCache();
@@ -37,6 +43,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Add health check endpoint
+app.MapHealthChecks("/health");
 
 
 app.Run();
