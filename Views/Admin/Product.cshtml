@@ -62,13 +62,29 @@
                             <span class="badge bg-warning text-dark position-absolute bottom-0 start-0 m-3">Best Seller</span>
                         }
                     </div>
-                    <div class="d-flex flex-wrap">
-                        @foreach (var image in Model.GalleryImages)
-                        {
-                            <div class="thumbnail-container me-2 mb-2">
-                                <img src="@image" alt="@Model.Name" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
-                            </div>
-                        }
+                    <div class="mb-3">
+                        <label class="form-label">Gallery Images</label>
+                        <div id="gallery-images-container" class="d-flex flex-wrap mb-2">
+                            @foreach (var image in Model.GalleryImages)
+                            {
+                                <div class="gallery-image-item me-2 mb-2 position-relative">
+                                    <img src="@image" alt="Gallery Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                    <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 remove-gallery-image">
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                    <input type="hidden" name="GalleryImages" value="@image" />
+                                </div>
+                            }
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="new-gallery-image-input" class="form-control" placeholder="https://example.com/gallery-image.jpg">
+                            <button type="button" id="add-gallery-image-btn" class="btn btn-outline-primary">
+                                <i class="bi bi-plus"></i> Add Image
+                            </button>
+                        </div>
+                        <small class="form-text text-muted">Add additional product images for the gallery</small>
+                        <div class="invalid-feedback" id="gallery-image-validation-feedback"></div>
+                        <span asp-validation-for="GalleryImages" class="text-danger"></span>
                     </div>
                 </div>
             </div>

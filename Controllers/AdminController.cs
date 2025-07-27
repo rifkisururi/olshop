@@ -32,16 +32,11 @@ namespace olshop.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Products(ProductFilterModel filter)
+        public async Task<IActionResult> Products()
         {
-            // Initialize filter with defaults if null
-            filter ??= new ProductFilterModel();
-            
             // Get all products (we'll filter client-side)
             var products = await _productRepository.GetAllProductsAsync();
             
-            // Pass both products and filter model to the view
-            ViewBag.FilterModel = filter;
             return View(products);
         }
 
@@ -64,35 +59,26 @@ namespace olshop.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product)
         {
-            if (ModelState.IsValid)
-            {
-                await _productRepository.AddProductAsync(product);
-                return RedirectToAction(nameof(Products));
-            }
-            
-            return View(product);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateProduct(int id, Product product)
-        {
             // Debug logging for boolean properties
-            _logger.LogInformation($"UpdateProduct - IsFeatured: {product.IsFeatured}, IsBestSeller: {product.IsBestSeller}");
+            _logger.LogInformation($"AddProduct - IsFeatured: {product.IsFeatured}, IsBestSeller: {product.IsBestSeller}");
             
             // Initialize collections if they are null
             product.Features ??= new List<string>();
             product.Colors ??= new List<string>();
             product.Tags ??= new List<string>();
+            product.GalleryImages ??= new List<string>();
             
             // Validate collection items (remove empty items)
             product.Features = product.Features.Where(f => !string.IsNullOrWhiteSpace(f)).ToList();
             product.Colors = product.Colors.Where(c => !string.IsNullOrWhiteSpace(c)).ToList();
             product.Tags = product.Tags.Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
+            product.GalleryImages = product.GalleryImages.Where(g => !string.IsNullOrWhiteSpace(g)).ToList();
             
             // Remove duplicate items
             product.Features = product.Features.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             product.Colors = product.Colors.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             product.Tags = product.Tags.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+            product.GalleryImages = product.GalleryImages.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             
             // Validate required collections
             if (!product.Features.Any())
@@ -119,6 +105,76 @@ namespace olshop.Controllers
             if (product.Tags.Any(t => t.Length > 50))
             {
                 ModelState.AddModelError("Tags", "Tag name cannot exceed 50 characters");
+            }
+            
+            if (product.GalleryImages.Any(g => g.Length > 500))
+            {
+                ModelState.AddModelError("GalleryImages", "Image URL cannot exceed 500 characters");
+            }
+            
+            if (ModelState.IsValid)
+            {
+                await _productRepository.AddProductAsync(product);
+                return RedirectToAction(nameof(Products));
+            }
+            
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProduct(int id, Product product)
+        {
+            // Debug logging for boolean properties
+            _logger.LogInformation($"UpdateProduct - IsFeatured: {product.IsFeatured}, IsBestSeller: {product.IsBestSeller}");
+            
+            // Initialize collections if they are null
+            product.Features ??= new List<string>();
+            product.Colors ??= new List<string>();
+            product.Tags ??= new List<string>();
+            product.GalleryImages ??= new List<string>();
+            
+            // Validate collection items (remove empty items)
+            product.Features = product.Features.Where(f => !string.IsNullOrWhiteSpace(f)).ToList();
+            product.Colors = product.Colors.Where(c => !string.IsNullOrWhiteSpace(c)).ToList();
+            product.Tags = product.Tags.Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
+            product.GalleryImages = product.GalleryImages.Where(g => !string.IsNullOrWhiteSpace(g)).ToList();
+            
+            // Remove duplicate items
+            product.Features = product.Features.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+            product.Colors = product.Colors.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+            product.Tags = product.Tags.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+            product.GalleryImages = product.GalleryImages.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+            
+            // Validate required collections
+            if (!product.Features.Any())
+            {
+                ModelState.AddModelError("Features", "At least one feature is required");
+            }
+            
+            if (!product.Colors.Any())
+            {
+                ModelState.AddModelError("Colors", "At least one color is required");
+            }
+            
+            // Validate item length
+            if (product.Features.Any(f => f.Length > 200))
+            {
+                ModelState.AddModelError("Features", "Feature text cannot exceed 200 characters");
+            }
+            
+            if (product.Colors.Any(c => c.Length > 50))
+            {
+                ModelState.AddModelError("Colors", "Color name cannot exceed 50 characters");
+            }
+            
+            if (product.Tags.Any(t => t.Length > 50))
+            {
+                ModelState.AddModelError("Tags", "Tag name cannot exceed 50 characters");
+            }
+            
+            if (product.GalleryImages.Any(g => g.Length > 500))
+            {
+                ModelState.AddModelError("GalleryImages", "Image URL cannot exceed 500 characters");
             }
             
             if (ModelState.IsValid)

@@ -6,7 +6,7 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/admin/css/product-pagination.css" />
+    <link rel="stylesheet" href="~/admin/css/product-editor.css" />
 }
 
 <!-- Product Management Section -->
@@ -68,9 +68,9 @@
                 <div class="mb-3">
                     <label for="priceRange" class="form-label">Price Range</label>
                     <div class="d-flex align-items-center">
-                        <span id="priceMin">$0</span>
-                        <input type="range" class="form-range mx-2" id="priceRange" min="0" max="500" step="10" value="500">
-                        <span id="priceMax">$500</span>
+                        <span id="priceMin">Rp 0</span>
+                        <input type="range" class="form-range mx-2" id="priceRange" min="0" max="9999999" step="10" value="9999999">
+                        <span id="priceMax">Rp 9999999</span>
                     </div>
                 </div>
                 
@@ -174,18 +174,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6 mb-2 mb-md-0">
                         <div class="d-flex align-items-center">
-                            <span class="text-muted me-2" id="productCount">Showing <span id="visibleProductCount">@Model.Count()</span> of <span id="totalProductCount">@Model.Count()</span> products</span>
-                            <div class="dropdown ms-2">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="pageSizeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span id="currentPageSize">@filter.PageSize</span> per page
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="pageSizeDropdown">
-                                    @foreach (var size in olshop.Models.ProductFilterModel.ValidPageSizes)
-                                    {
-                                        <li><a class="dropdown-item page-size-option @(filter.PageSize == size ? "active" : "")" href="#" data-size="@size">@size per page</a></li>
-                                    }
-                                </ul>
-                            </div>
+                            <span class="text-muted me-2" id="productCount">Showing <span id="totalProductCount">@Model.Count()</span> products</span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -283,47 +272,10 @@
             }
         </div>
         
-        <!-- Pagination -->
-        <nav class="mt-4" aria-label="Product pagination">
-            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                <div class="mb-3 mb-md-0">
-                    <span class="text-muted">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
-                </div>
-                
-                <ul class="pagination pagination-responsive mb-0">
-                    <li class="page-item" id="prevPageItem">
-                        <a class="page-link" href="#" id="prevPage" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="d-none d-sm-inline">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item d-none d-sm-block" id="firstPageItem">
-                        <a class="page-link" href="#" data-page="1">1</a>
-                    </li>
-                    <li class="page-item disabled d-none" id="startEllipsis">
-                        <span class="page-link">...</span>
-                    </li>
-                    <li class="page-item d-none" id="pageTemplate">
-                        <a class="page-link" href="#" data-page="0">0</a>
-                    </li>
-                    <li class="page-item disabled d-none" id="endEllipsis">
-                        <span class="page-link">...</span>
-                    </li>
-                    <li class="page-item d-none" id="lastPageItem">
-                        <a class="page-link" href="#" data-page="1">1</a>
-                    </li>
-                    <li class="page-item" id="nextPageItem">
-                        <a class="page-link" href="#" id="nextPage" aria-label="Next">
-                            <span class="d-none d-sm-inline">Next</span>
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <!-- No pagination here -->
     </div>
 </div>
 
 @section Scripts {
-    <script src="~/admin/js/product-pagination.js"></script>
+    <script src="~/admin/js/products.js"></script>
 }

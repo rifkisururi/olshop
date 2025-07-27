@@ -2,6 +2,17 @@
 @{
     ViewData["Title"] = "Add Product";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    
+    bool IsColorDark(string color)
+    {
+        // Simple implementation - can be enhanced
+        var darkColors = new[] { "black", "navy", "blue", "darkblue", "purple", "darkpurple", "brown", "darkbrown", "green", "darkgreen" };
+        return darkColors.Contains(color.ToLower());
+    }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/admin/css/product-editor.css" />
 }
 
 <!-- Add Product Form -->
@@ -109,8 +120,23 @@
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            <label for="ImageUrl" class="form-label">Image URL *</label>
+                            <label for="ImageUrl" class="form-label">Main Image URL *</label>
                             <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" required placeholder="https://example.com/image.jpg">
+                        </div>
+                        
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Gallery Images</label>
+                            <div id="gallery-images-container" class="d-flex flex-wrap mb-2">
+                                <!-- Gallery images will be added here -->
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="new-gallery-image-input" class="form-control" placeholder="https://example.com/gallery-image.jpg">
+                                <button type="button" id="add-gallery-image-btn" class="btn btn-outline-primary">
+                                    <i class="bi bi-plus"></i> Add Image
+                                </button>
+                            </div>
+                            <small class="form-text text-muted">Add additional product images for the gallery</small>
+                            <div class="invalid-feedback" id="gallery-image-validation-feedback"></div>
                         </div>
                     </div>
                     
@@ -153,16 +179,16 @@
                         
                         <div class="col-md-4 mb-3">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="IsFeatured" name="IsFeatured">
-                                <label class="form-check-label" for="IsFeatured">Featured Product</label>
+                                <input asp-for="IsFeatured" class="form-check-input" type="checkbox">
+                                <label asp-for="IsFeatured" class="form-check-label">Featured Product</label>
                             </div>
                             <div class="form-text">Display this product in featured sections</div>
                         </div>
                         
                         <div class="col-md-4 mb-3">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="IsBestSeller" name="IsBestSeller">
-                                <label class="form-check-label" for="IsBestSeller">Best Seller</label>
+                                <input asp-for="IsBestSeller" class="form-check-input" type="checkbox">
+                                <label asp-for="IsBestSeller" class="form-check-label">Best Seller</label>
                             </div>
                             <div class="form-text">Mark this product as a best seller</div>
                         </div>
@@ -193,12 +219,200 @@
 
 
 @section Scripts {
+    <script src="~/admin/js/product-editor.js"></script>
     <script>
         $(document).ready(function() {
-            // Form validation
+            // Initialize gallery image handling
+            initializeGalleryImageManager();
+            
+            // Form validation and submission handling
             $('form').on('submit', function(e) {
-                // Custom validation logic if needed
+                if (!validateAddProductForm()) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Process collection inputs before submission
+                processCollectionInputs();
             });
+            
+            // Detect touch devices
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (isTouchDevice) {
+                document.body.classList.add('touch-device');
+            }
         });
+        
+        // Process collection inputs (Features, Colors, Tags)
+        function processCollectionInputs() {
+            // Process Features (split by newlines)
+            const featuresTextarea = document.getElementById('Features');
+            if (featuresTextarea && featuresTextarea.value.trim()) {
+                const features = featuresTextarea.value.split('\n')
+                    .map(f => f.trim())
+                    .filter(f => f);
+                
+                // Clear the textarea
+                featuresTextarea.value = '';
+                
+                // Create hidden inputs for each feature
+                features.forEach(feature => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'Features';
+                    input.value = feature;
+                    document.querySelector('form').appendChild(input);
+                });
+            }
+            
+            // Process Colors (split by commas)
+            const colorsInput = document.getElementById('Colors');
+            if (colorsInput && colorsInput.value.trim()) {
+                const colors = colorsInput.value.split(',')
+                    .map(c => c.trim())
+                    .filter(c => c);
+                
+                // Clear the input
+                colorsInput.value = '';
+                
+                // Create hidden inputs for each color
+                colors.forEach(color => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'Colors';
+                    input.value = color;
+                    document.querySelector('form').appendChild(input);
+                });
+            }
+            
+            // Process Tags (split by commas)
+            const tagsInput = document.getElementById('Tags');
+            if (tagsInput && tagsInput.value.trim()) {
+                const tags = tagsInput.value.split(',')
+                    .map(t => t.trim())
+                    .filter(t => t);
+                
+                // Clear the input
+                tagsInput.value = '';
+                
+                // Create hidden inputs for each tag
+                tags.forEach(tag => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'Tags';
+                    input.value = tag;
+                    document.querySelector('form').appendChild(input);
+                });
+            }
+        }
+        
+        // Initialize gallery image manager
+        function initializeGalleryImageManager() {
+            const galleryContainer = document.getElementById('gallery-images-container');
+            const imageInput = document.getElementById('new-gallery-image-input');
+            const addImageBtn = document.getElementById('add-gallery-image-btn');
+            
+            // Add event listener for adding new gallery images
+            addImageBtn.addEventListener('click', function() {
+                addGalleryImage(imageInput.value);
+                imageInput.value = '';
+            });
+            
+            // Add event listener for Enter key in input
+            imageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addImageBtn.click();
+                }
+            });
+            
+            // Function to add a new gallery image
+            function addGalleryImage(imageUrl) {
+                if (!validateGalleryImage(imageUrl)) return;
+                
+                const imageItem = createGalleryImageItem(imageUrl);
+                galleryContainer.appendChild(imageItem);
+            }
+            
+            // Function to validate a gallery image URL
+            function validateGalleryImage(imageUrl) {
+                if (!imageUrl.trim()) {
+                    showValidationError(imageInput, 'Image URL cannot be empty');
+                    return false;
+                }
+                
+                // Simple URL validation
+                if (!imageUrl.match(/^https?:\/\/.+\..+/)) {
+                    showValidationError(imageInput, 'Please enter a valid URL');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Function to create a gallery image item
+            function createGalleryImageItem(imageUrl) {
+                const container = document.createElement('div');
+                container.className = 'gallery-image-item me-2 mb-2 position-relative';
+                
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = 'Gallery Image';
+                img.className = 'img-thumbnail';
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.objectFit = 'cover';
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'btn btn-sm btn-danger position-absolute top-0 end-0';
+                removeBtn.innerHTML = '<i class="bi bi-x"></i>';
+                removeBtn.addEventListener('click', function() {
+                    container.remove();
+                });
+                
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'GalleryImages';
+                hiddenInput.value = imageUrl;
+                
+                container.appendChild(img);
+                container.appendChild(removeBtn);
+                container.appendChild(hiddenInput);
+                
+                return container;
+            }
+        }
+        
+        // Validate the add product form
+        function validateAddProductForm() {
+            let isValid = true;
+            
+            // Validate required fields
+            const requiredFields = ['Name', 'Category', 'Price', 'ImageUrl'];
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field);
+                if (!input.value.trim()) {
+                    showValidationError(input, `${field} is required`);
+                    isValid = false;
+                }
+            });
+            
+            // Validate Features (at least one feature required)
+            const featuresTextarea = document.getElementById('Features');
+            if (!featuresTextarea.value.trim()) {
+                showValidationError(featuresTextarea, 'At least one feature is required');
+                isValid = false;
+            }
+            
+            // Validate Colors (at least one color required)
+            const colorsInput = document.getElementById('Colors');
+            if (!colorsInput.value.trim()) {
+                showValidationError(colorsInput, 'At least one color is required');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
     </script>
 }

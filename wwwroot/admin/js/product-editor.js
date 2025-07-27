@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFeatureManager();
     initializeColorManager();
     initializeTagManager();
+    initializeGalleryImageManager();
     
     // Handle form submission
     document.querySelector('form').addEventListener('submit', function(e) {
@@ -540,4 +541,100 @@ function isColorDark(color) {
     // Simple implementation - can be enhanced
     const darkColors = ['black', 'navy', 'blue', 'darkblue', 'purple', 'darkpurple', 'brown', 'darkbrown', 'green', 'darkgreen'];
     return darkColors.includes(color.toLowerCase());
+}
+
+/**
+ * Initialize the gallery image manager
+ */
+function initializeGalleryImageManager() {
+    // Get DOM elements
+    const galleryContainer = document.getElementById('gallery-images-container');
+    const imageInput = document.getElementById('new-gallery-image-input');
+    const addImageBtn = document.getElementById('add-gallery-image-btn');
+    
+    // If elements don't exist, return early (might be on a different page)
+    if (!galleryContainer || !imageInput || !addImageBtn) return;
+    
+    // Add event listener for adding new gallery images
+    addImageBtn.addEventListener('click', function() {
+        addGalleryImage(imageInput.value);
+        imageInput.value = '';
+    });
+    
+    // Add event listener for Enter key in input
+    imageInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addImageBtn.click();
+        }
+    });
+    
+    // Add event listeners for existing remove buttons
+    document.querySelectorAll('.remove-gallery-image').forEach(btn => {
+        btn.addEventListener('click', function() {
+            btn.closest('.gallery-image-item').remove();
+        });
+    });
+    
+    // Function to add a new gallery image
+    function addGalleryImage(imageUrl) {
+        if (!validateGalleryImage(imageUrl)) return;
+        
+        const imageItem = createGalleryImageItem(imageUrl);
+        galleryContainer.appendChild(imageItem);
+    }
+    
+    // Function to validate a gallery image URL
+    function validateGalleryImage(imageUrl) {
+        if (!imageUrl.trim()) {
+            showValidationError(imageInput, 'Image URL cannot be empty');
+            return false;
+        }
+        
+        // Simple URL validation
+        if (!imageUrl.match(/^https?:\/\/.+\..+/)) {
+            showValidationError(imageInput, 'Please enter a valid URL');
+            return false;
+        }
+        
+        if (imageUrl.length > 500) {
+            showValidationError(imageInput, 'Image URL cannot exceed 500 characters');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // Function to create a gallery image item
+    function createGalleryImageItem(imageUrl) {
+        const container = document.createElement('div');
+        container.className = 'gallery-image-item me-2 mb-2 position-relative';
+        
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = 'Gallery Image';
+        img.className = 'img-thumbnail';
+        img.style.width = '100px';
+        img.style.height = '100px';
+        img.style.objectFit = 'cover';
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn btn-sm btn-danger position-absolute top-0 end-0';
+        removeBtn.innerHTML = '<i class="bi bi-x"></i>';
+        removeBtn.addEventListener('click', function() {
+            container.remove();
+        });
+        
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'GalleryImages';
+        hiddenInput.value = imageUrl;
+        
+        container.appendChild(img);
+        container.appendChild(removeBtn);
+        container.appendChild(hiddenInput);
+        
+        return container;
+    }
 }
