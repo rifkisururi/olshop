@@ -75,91 +75,45 @@
             <p class="section-subtitle">Check out our featured products</p>
         </div>
         <div class="row g-4">
-            <!-- Featured Product 1 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="feat-1" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 1" class="img-fluid w-100" loading="lazy">
-                        </a>
-                        <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
-                        <span class="badge bg-success position-absolute top-0 end-0 m-2 px-2 py-1">New</span>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">BAG</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Featured Product 1</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="old-price text-decoration-line-through text-muted me-2" data-idr="300000" data-usd="19.50">Rp 300.000</span>
-                            <span class="fw-bold text-primary" data-idr="250000" data-usd="16.25">Rp 250.000</span>
+            @if (ViewData["FeaturedProducts"] != null && ((IEnumerable<Product>)ViewData["FeaturedProducts"]).Any())
+            {
+                foreach (var product in (IEnumerable<Product>)ViewData["FeaturedProducts"])
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a href="/Home/DetailProduk?id=@product.Id">
+                                    <img src="@product.ImageUrl" alt="@product.Name" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                @if (product.OldPrice.HasValue && product.OldPrice > product.Price)
+                                {
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                                }
+                                <span class="badge bg-success position-absolute top-0 end-0 m-2 px-2 py-1">New</span>
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">@product.Category</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="/Home/DetailProduk?id=@product.Id" class="text-decoration-none text-dark">@product.Name</a>
+                                </h5>
+                                <div class="product-price">
+                                    @if (product.OldPrice.HasValue && product.OldPrice > product.Price)
+                                    {
+                                        <span class="old-price text-decoration-line-through text-muted me-2">Rp @product.OldPrice.Value.ToString("N0")</span>
+                                    }
+                                    <span class="fw-bold text-primary">Rp @product.Price.ToString("N0")</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>No featured products available at the moment.</p>
                 </div>
-            </div>
-
-            <!-- Featured Product 2 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="feat-2" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 2" class="img-fluid w-100" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">WALLET</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Featured Product 2</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="fw-bold text-primary" data-idr="150000" data-usd="9.75">Rp 150.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Product 3 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="feat-3" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 3" class="img-fluid w-100" loading="lazy">
-                        </a>
-                        <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
-                        <span class="badge bg-success position-absolute top-0 end-0 m-2 px-2 py-1">New</span>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">WATCH</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Featured Product 3</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="old-price text-decoration-line-through text-muted me-2" data-idr="400000" data-usd="26.00">Rp 400.000</span>
-                            <span class="fw-bold text-primary" data-idr="350000" data-usd="22.75">Rp 350.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Product 4 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="feat-4" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Featured Product 4" class="img-fluid w-100" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">HEELS</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Featured Product 4</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="fw-bold text-primary" data-idr="280000" data-usd="18.20">Rp 280.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
@@ -172,89 +126,44 @@
             <p class="section-subtitle">Our most popular products</p>
         </div>
         <div class="row g-4">
-            <!-- Best Selling Product 1 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="best-1" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 1" class="img-fluid w-100" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">WALLET</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Best Seller Product 1</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="fw-bold text-primary" data-idr="180000" data-usd="11.70">Rp 180.000</span>
+            @if (ViewData["BestSellingProducts"] != null && ((IEnumerable<Product>)ViewData["BestSellingProducts"]).Any())
+            {
+                foreach (var product in (IEnumerable<Product>)ViewData["BestSellingProducts"])
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="product-card shadow-sm rounded overflow-hidden">
+                            <div class="product-image position-relative">
+                                <a href="/Home/DetailProduk?id=@product.Id">
+                                    <img src="@product.ImageUrl" alt="@product.Name" class="img-fluid w-100" loading="lazy">
+                                </a>
+                                @if (product.OldPrice.HasValue && product.OldPrice > product.Price)
+                                {
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
+                                }
+                            </div>
+                            <div class="product-info p-3 bg-white">
+                                <div class="product-category text-muted small mb-1">@product.Category</div>
+                                <h5 class="product-title mb-2">
+                                    <a href="/Home/DetailProduk?id=@product.Id" class="text-decoration-none text-dark">@product.Name</a>
+                                </h5>
+                                <div class="product-price">
+                                    @if (product.OldPrice.HasValue && product.OldPrice > product.Price)
+                                    {
+                                        <span class="old-price text-decoration-line-through text-muted me-2">Rp @product.OldPrice.Value.ToString("N0")</span>
+                                    }
+                                    <span class="fw-bold text-primary">Rp @product.Price.ToString("N0")</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>No best-selling products available at the moment.</p>
                 </div>
-            </div>
-
-            <!-- Best Selling Product 2 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="best-2" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 2" class="img-fluid w-100" loading="lazy">
-                        </a>
-                        <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">BAG</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Best Seller Product 2</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="old-price text-decoration-line-through text-muted me-2" data-idr="380000" data-usd="24.70">Rp 380.000</span>
-                            <span class="fw-bold text-primary" data-idr="320000" data-usd="20.80">Rp 320.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Best Selling Product 3 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="best-3" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 3" class="img-fluid w-100" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">WATCH</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Best Seller Product 3</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="fw-bold text-primary" data-idr="450000" data-usd="29.25">Rp 450.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Best Selling Product 4 -->
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="product-card shadow-sm rounded overflow-hidden">
-                    <div class="product-image position-relative">
-                        <a class="mx-1 quick-view-btn" data-product-id="best-4" data-bs-toggle="modal" data-bs-target="#addToCartModal" title="Quick View">
-                            <img src="https://jimshoneyofficial.co.id/uploads/all/6Xl9cCdP4NDKzfZroYdnkzJ9gdibfVUxdZO613f0.jpg" alt="Best Seller Product 4" class="img-fluid w-100" loading="lazy">
-                        </a>
-                        <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">Sale</span>
-                    </div>
-                    <div class="product-info p-3 bg-white">
-                        <div class="product-category text-muted small mb-1">HEELS</div>
-                        <h5 class="product-title mb-2">
-                            <a href="#" class="text-decoration-none text-dark">Best Seller Product 4</a>
-                        </h5>
-                        <div class="product-price">
-                            <span class="old-price text-decoration-line-through text-muted me-2" data-idr="320000" data-usd="20.80">Rp 320.000</span>
-                            <span class="fw-bold text-primary" data-idr="270000" data-usd="17.55">Rp 270.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>

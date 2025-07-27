@@ -21,9 +21,28 @@ public class HomeController : Controller
         _productRepository = productRepository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        try
+        {
+            // Retrieve featured products (limited to a reasonable number)
+            var featuredProducts = await _productRepository.GetFeaturedProductsAsync();
+            ViewData["FeaturedProducts"] = featuredProducts.Take(4);
+            
+            // Retrieve best-selling products (limited to a reasonable number)
+            var bestSellingProducts = await _productRepository.GetBestSellerProductsAsync();
+            ViewData["BestSellingProducts"] = bestSellingProducts.Take(4);
+            
+            return View();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving products for home page");
+            // Return empty collections to avoid breaking the view
+            ViewData["FeaturedProducts"] = Enumerable.Empty<Product>();
+            ViewData["BestSellingProducts"] = Enumerable.Empty<Product>();
+            return View();
+        }
     }
 
     public async Task<IActionResult> DetailProduk(int id)
