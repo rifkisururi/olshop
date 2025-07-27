@@ -31,9 +31,16 @@ namespace olshop.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Products()
+        public async Task<IActionResult> Products(ProductFilterModel filter)
         {
+            // Initialize filter with defaults if null
+            filter ??= new ProductFilterModel();
+            
+            // Get all products (we'll filter client-side)
             var products = await _productRepository.GetAllProductsAsync();
+            
+            // Pass both products and filter model to the view
+            ViewBag.FilterModel = filter;
             return View(products);
         }
 
