@@ -1,0 +1,204 @@
+@model olshop.Models.Product
+@{
+    ViewData["Title"] = "Add Product";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<!-- Add Product Form -->
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form asp-controller="Admin" asp-action="AddProduct" method="post">
+                    <!-- Basic Information -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="card-title mb-3">Basic Information</h5>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="Id" class="form-label">Product ID</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="Id" placeholder="Auto-generated" disabled>
+                                <span class="input-group-text">Auto-generated</span>
+                            </div>
+                            <div class="form-text">Unique identifier for the product</div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="Name" class="form-label">Product Name *</label>
+                            <input type="text" class="form-control" id="Name" name="Name" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="Category" class="form-label">Category *</label>
+                            <select class="form-select" id="Category" name="Category" required>
+                                <option value="" selected disabled>Select category</option>
+                                <option value="Bags">Bags</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Watches">Watches</option>
+                                <option value="Clothing">Clothing</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="Description" class="form-label">Description</label>
+                            <textarea class="form-control" id="Description" name="Description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Pricing Information -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="card-title mb-3">Pricing Information</h5>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="Price" class="form-label">Price ($) *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="Price" name="Price" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="OldPrice" class="form-label">Old Price ($)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="OldPrice" name="OldPrice" min="0" step="0.01">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="Rating" class="form-label">Rating</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="Rating" name="Rating" min="0" max="5" step="0.1" value="0">
+                                <span class="input-group-text"><i class="bi bi-star-fill text-warning"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Details -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="card-title mb-3">Product Details</h5>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="Material" class="form-label">Material</label>
+                            <input type="text" class="form-control" id="Material" name="Material">
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="Dimensions" class="form-label">Dimensions</label>
+                            <input type="text" class="form-control" id="Dimensions" name="Dimensions" placeholder="e.g., 30cm x 20cm x 10cm">
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="Weight" class="form-label">Weight (grams)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="Weight" name="Weight" min="0">
+                                <span class="input-group-text">g</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="ReviewCount" class="form-label">Review Count</label>
+                            <input type="number" class="form-control" id="ReviewCount" name="ReviewCount" min="0" value="0">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="ImageUrl" class="form-label">Image URL *</label>
+                            <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" required placeholder="https://example.com/image.jpg">
+                        </div>
+                    </div>
+                    
+                    <!-- Note about images -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <span>For this demo, please enter image URLs directly. In a production environment, file upload functionality would be implemented.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Simplified Colors, Tags, and Features -->
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <h5 class="card-title mb-3">Colors</h5>
+                            <input type="text" class="form-control mb-2" id="Colors" name="Colors" placeholder="Black, Brown, Pink">
+                            <div class="form-text">Enter colors separated by commas</div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <h5 class="card-title mb-3">Tags</h5>
+                            <input type="text" class="form-control mb-2" id="Tags" name="Tags" placeholder="Luxury, Fashion, Trending">
+                            <div class="form-text">Enter tags separated by commas</div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <h5 class="card-title mb-3">Features</h5>
+                            <textarea class="form-control" id="Features" name="Features" rows="3" placeholder="Premium quality materials&#10;Adjustable straps&#10;Multiple compartments"></textarea>
+                            <div class="form-text">Enter each feature on a new line</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Status -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="card-title mb-3">Product Status</h5>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="IsFeatured" name="IsFeatured">
+                                <label class="form-check-label" for="IsFeatured">Featured Product</label>
+                            </div>
+                            <div class="form-text">Display this product in featured sections</div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="IsBestSeller" name="IsBestSeller">
+                                <label class="form-check-label" for="IsBestSeller">Best Seller</label>
+                            </div>
+                            <div class="form-text">Mark this product as a best seller</div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="Status" class="form-label">Stock Status</label>
+                            <select class="form-select" id="Status" name="Status">
+                                <option value="In Stock" selected>In Stock</option>
+                                <option value="Low Stock">Low Stock</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                            <div class="form-text">Current inventory status</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end">
+                            <a asp-controller="Admin" asp-action="Products" class="btn btn-outline-secondary me-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Add Product</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Form validation
+            $('form').on('submit', function(e) {
+                // Custom validation logic if needed
+            });
+        });
+    </script>
+}

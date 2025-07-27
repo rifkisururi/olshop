@@ -1,0 +1,229 @@
+{
+  "products": [
+    {
+      "id": "TB-12345",
+      "name": "Elegant Tote Bag",
+      "category": "Bags",
+      "price": 89.99,
+      "old_price": 120.00,
+      "discount": 25,
+      "primary_image": "https://placehold.co/400x400/pink/white?text=Elegant+Tote+Bag",
+      "rating": 4.5,
+      "review_count": 128,
+      "description": "This elegant tote bag is crafted from premium leather with meticulous attention to detail. The spacious interior features multiple compartments for organized storage, while the adjustable strap offers versatile carrying options. Perfect for both casual outings and formal occasions.",
+      "material": "Premium Genuine Leather",
+      "dimensions": "30cm x 20cm x 10cm",
+      "weight": 850,
+      "featured": true,
+      "best_seller": false,
+      "status": "In Stock",
+      "images": [
+        "https://placehold.co/400x400/pink/white?text=Elegant+Tote+Bag",
+        "https://placehold.co/400x400/pink/white?text=Tote+Bag+1",
+        "https://placehold.co/400x400/pink/white?text=Tote+Bag+2",
+        "https://placehold.co/400x400/pink/white?text=Tote+Bag+3"
+      ],
+      "colors": ["Black", "Brown", "Blue"],
+      "tags": ["Luxury", "Women", "Fashion", "Leather", "Trending"],
+      "features": [
+        "Adjustable shoulder strap",
+        "Multiple interior compartments",
+        "Premium metal hardware",
+        "Secure zipper closure",
+        "Dust bag included"
+      ],
+      "performance": {
+        "views": 1245,
+        "orders": 86,
+        "revenue": 7739,
+        "conversion": 6.9
+      }
+    },
+    {
+      "id": "WL-67890",
+      "name": "Leather Wallet",
+      "category": "Accessories",
+      "price": 45.00,
+      "old_price": 60.00,
+      "discount": 25,
+      "primary_image": "https://placehold.co/400x400/brown/white?text=Leather+Wallet",
+      "rating": 4.2,
+      "review_count": 95,
+      "description": "A sleek and functional leather wallet with multiple card slots and a spacious bill compartment. Made from genuine leather that develops a beautiful patina over time.",
+      "material": "Genuine Leather",
+      "dimensions": "10cm x 8cm x 1cm",
+      "weight": 120,
+      "featured": false,
+      "best_seller": true,
+      "status": "In Stock",
+      "images": [
+        "https://placehold.co/400x400/brown/white?text=Leather+Wallet",
+        "https://placehold.co/400x400/brown/white?text=Wallet+1",
+        "https://placehold.co/400x400/brown/white?text=Wallet+2"
+      ],
+      "colors": ["Black", "Brown"],
+      "tags": ["Accessories", "Men", "Leather", "Gift"],
+      "features": [
+        "Multiple card slots",
+        "Bill compartment",
+        "ID window",
+        "Compact design"
+      ],
+      "performance": {
+        "views": 980,
+        "orders": 65,
+        "revenue": 2925,
+        "conversion": 6.6
+      }
+    },
+    {
+      "id": "FB-23456",
+      "name": "Fashion Bracelet",
+      "category": "Jewelry",
+      "price": 29.99,
+      "old_price": 39.99,
+      "discount": 25,
+      "primary_image": "https://placehold.co/400x400/gold/white?text=Fashion+Bracelet",
+      "rating": 4.8,
+      "review_count": 72,
+      "description": "An elegant fashion bracelet that adds a touch of sophistication to any outfit. The delicate design features high-quality materials and expert craftsmanship.",
+      "material": "Gold-plated Brass",
+      "dimensions": "18cm circumference",
+      "weight": 30,
+      "featured": false,
+      "best_seller": false,
+      "status": "Low Stock",
+      "images": [
+        "https://placehold.co/400x400/gold/white?text=Fashion+Bracelet",
+        "https://placehold.co/400x400/gold/white?text=Bracelet+1",
+        "https://placehold.co/400x400/gold/white?text=Bracelet+2"
+      ],
+      "colors": ["Gold", "Silver"],
+      "tags": ["Jewelry", "Women", "Fashion", "Gift"],
+      "features": [
+        "Adjustable size",
+        "Hypoallergenic materials",
+        "Tarnish-resistant finish",
+        "Gift box included"
+      ],
+      "performance": {
+        "views": 850,
+        "orders": 48,
+        "revenue": 1439,
+        "conversion": 5.6
+      }
+    },
+    {
+      "id": "SG-34567",
+      "name": "Stylish Sunglasses",
+      "category": "Accessories",
+      "price": 59.99,
+      "old_price": 79.99,
+      "discount": 25,
+      "primary_image": "https://placehold.co/400x400/black/white?text=Stylish+Sunglasses",
+      "rating": 4.0,
+      "review_count": 56,
+      "description": "Protect your eyes in style with these fashionable sunglasses. Featuring UV protection and a comfortable fit, these sunglasses are perfect for everyday wear.",
+      "material": "Acetate Frame, Polarized Lenses",
+      "dimensions": "14.5cm width",
+      "weight": 25,
+      "featured": false,
+      "best_seller": false,
+      "status": "Out of Stock",
+      "images": [
+        "https://placehold.co/400x400/black/white?text=Stylish+Sunglasses",
+        "https://placehold.co/400x400/black/white?text=Sunglasses+1",
+        "https://placehold.co/400x400/black/white?text=Sunglasses+2"
+      ],
+      "colors": ["Black", "Brown", "Blue"],
+      "tags": ["Accessories", "Eyewear", "Fashion", "Summer"],
+      "features": [
+        "UV400 protection",
+        "Polarized lenses",
+        "Durable frame",
+        "Protective case included"
+      ],
+      "performance": {
+        "views": 720,
+        "orders": 32,
+        "revenue": 1920,
+        "conversion": 4.4
+      }
+    },
+    {
+      "id": "DW-45678",
+      "name": "Designer Watch",
+      "category": "Watches",
+      "price": 129.99,
+      "old_price": 159.99,
+      "discount": 19,
+      "primary_image": "https://placehold.co/400x400/silver/black?text=Designer+Watch",
+      "rating": 4.7,
+      "review_count": 108,
+      "description": "A sophisticated designer watch that combines style and functionality. With a premium stainless steel band and precise quartz movement, this watch is a perfect accessory for any occasion.",
+      "material": "Stainless Steel, Mineral Glass",
+      "dimensions": "40mm case diameter",
+      "weight": 120,
+      "featured": true,
+      "best_seller": false,
+      "status": "In Stock",
+      "images": [
+        "https://placehold.co/400x400/silver/black?text=Designer+Watch",
+        "https://placehold.co/400x400/silver/black?text=Watch+1",
+        "https://placehold.co/400x400/silver/black?text=Watch+2"
+      ],
+      "colors": ["Silver", "Gold", "Black"],
+      "tags": ["Watches", "Luxury", "Men", "Fashion"],
+      "features": [
+        "Japanese quartz movement",
+        "Water-resistant (30m)",
+        "Stainless steel band",
+        "Date display",
+        "2-year warranty"
+      ],
+      "performance": {
+        "views": 950,
+        "orders": 62,
+        "revenue": 8059,
+        "conversion": 6.5
+      }
+    },
+    {
+      "id": "SS-56789",
+      "name": "Silk Scarf",
+      "category": "Accessories",
+      "price": 35.99,
+      "old_price": 45.99,
+      "discount": 22,
+      "primary_image": "https://placehold.co/400x400/purple/white?text=Silk+Scarf",
+      "rating": 4.5,
+      "review_count": 85,
+      "description": "Add a touch of elegance to any outfit with this luxurious silk scarf. The vibrant colors and intricate patterns make it a versatile accessory for all seasons.",
+      "material": "100% Silk",
+      "dimensions": "90cm x 90cm",
+      "weight": 50,
+      "featured": false,
+      "best_seller": true,
+      "status": "In Stock",
+      "images": [
+        "https://placehold.co/400x400/purple/white?text=Silk+Scarf",
+        "https://placehold.co/400x400/purple/white?text=Scarf+1",
+        "https://placehold.co/400x400/purple/white?text=Scarf+2"
+      ],
+      "colors": ["Red", "Blue", "Green", "Purple"],
+      "tags": ["Accessories", "Women", "Fashion", "Gift"],
+      "features": [
+        "100% natural silk",
+        "Hand-rolled edges",
+        "Vibrant colors",
+        "Gift box included"
+      ],
+      "performance": {
+        "views": 820,
+        "orders": 58,
+        "revenue": 2087,
+        "conversion": 7.1
+      }
+    }
+  ]
+}

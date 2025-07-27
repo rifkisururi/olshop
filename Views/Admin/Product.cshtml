@@ -1,0 +1,243 @@
+@model olshop.Models.Product
+@{
+    ViewData["Title"] = $"Product: {Model.Name}";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<!-- Product Detail Section -->
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Product Details</h2>
+        <div>
+            <a asp-controller="Admin" asp-action="Products" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Products
+            </a>
+            <a asp-controller="Admin" asp-action="AddProduct" class="btn btn-primary">
+                <i class="bi bi-plus"></i> Add New Product
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Product Detail Section -->
+<form asp-controller="Admin" asp-action="UpdateProduct" asp-route-id="@Model.Id" method="post">
+    <div class="row">
+        <!-- Product Images -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="position-relative mb-3">
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded">
+                        @if (Model.Status == "In Stock")
+                        {
+                            <span class="badge bg-success position-absolute top-0 end-0 m-3">In Stock</span>
+                        }
+                        else if (Model.Status == "Low Stock")
+                        {
+                            <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3">Low Stock</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">Out of Stock</span>
+                        }
+                        
+                        @if (Model.IsFeatured)
+                        {
+                            <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+                        }
+                        
+                        @if (Model.IsBestSeller)
+                        {
+                            <span class="badge bg-warning text-dark position-absolute bottom-0 start-0 m-3">Best Seller</span>
+                        }
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        @foreach (var image in Model.GalleryImages)
+                        {
+                            <div class="thumbnail-container me-2 mb-2">
+                                <img src="@image" alt="@Model.Name" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Information -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="Id" class="form-label">Product ID</label>
+                        <input type="text" class="form-control" id="Id" value="@Model.Id" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="Category" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="Category" name="Category" value="@Model.Category" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="Price" class="form-label">Price ($)</label>
+                            <input type="number" class="form-control" id="Price" name="Price" value="@Model.Price" step="0.01" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="OldPrice" class="form-label">Old Price ($)</label>
+                            <input type="number" class="form-control" id="OldPrice" name="OldPrice" value="@Model.OldPrice" step="0.01">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="Rating" class="form-label">Rating</label>
+                            <input type="number" class="form-control" id="Rating" name="Rating" value="@Model.Rating" step="0.1" min="0" max="5">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="ReviewCount" class="form-label">Review Count</label>
+                            <input type="number" class="form-control" id="ReviewCount" name="ReviewCount" value="@Model.ReviewCount">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Description</label>
+                        <textarea class="form-control" id="Description" name="Description" rows="3">@Model.Description</textarea>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="Material" class="form-label">Material</label>
+                            <input type="text" class="form-control" id="Material" name="Material" value="@Model.Material">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Dimensions" class="form-label">Dimensions</label>
+                            <input type="text" class="form-control" id="Dimensions" name="Dimensions" value="@Model.Dimensions">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="Weight" class="form-label">Weight (g)</label>
+                            <input type="number" class="form-control" id="Weight" name="Weight" value="@Model.Weight">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Status" class="form-label">Status</label>
+                            <select class="form-select" id="Status" name="Status">
+                                @if (Model.Status == "In Stock")
+                                {
+                                    <option value="In Stock" selected>In Stock</option>
+                                }
+                                else
+                                {
+                                    <option value="In Stock">In Stock</option>
+                                }
+                                
+                                @if (Model.Status == "Low Stock")
+                                {
+                                    <option value="Low Stock" selected>Low Stock</option>
+                                }
+                                else
+                                {
+                                    <option value="Low Stock">Low Stock</option>
+                                }
+                                
+                                @if (Model.Status == "Out of Stock")
+                                {
+                                    <option value="Out of Stock" selected>Out of Stock</option>
+                                }
+                                else
+                                {
+                                    <option value="Out of Stock">Out of Stock</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="ImageUrl" class="form-label">Main Image URL</label>
+                        <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" value="@Model.ImageUrl">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Features</label>
+                        <ul class="list-group">
+                            @foreach (var feature in Model.Features)
+                            {
+                                <li class="list-group-item">@feature</li>
+                            }
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Colors</label>
+                        <div class="d-flex flex-wrap">
+                            @foreach (var color in Model.Colors)
+                            {
+                                <span class="badge bg-secondary me-1 mb-1">@color</span>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Tags</label>
+                        <div class="d-flex flex-wrap">
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <span class="badge bg-info text-dark me-1 mb-1">@tag</span>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="form-check form-switch">
+                            @if (Model.IsFeatured)
+                            {
+                                <input class="form-check-input" type="checkbox" id="IsFeatured" name="IsFeatured" checked>
+                            }
+                            else
+                            {
+                                <input class="form-check-input" type="checkbox" id="IsFeatured" name="IsFeatured">
+                            }
+                            <label class="form-check-label" for="IsFeatured">Featured</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            @if (Model.IsBestSeller)
+                            {
+                                <input class="form-check-input" type="checkbox" id="IsBestSeller" name="IsBestSeller" checked>
+                            }
+                            else
+                            {
+                                <input class="form-check-input" type="checkbox" id="IsBestSeller" name="IsBestSeller">
+                            }
+                            <label class="form-check-label" for="IsBestSeller">Best Seller</label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <form asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@Model.Id" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete Product</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Form validation and submission handling can be added here
+            $('form').on('submit', function(e) {
+                // Custom validation logic if needed
+            });
+        });
+    </script>
+}

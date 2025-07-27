@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Jim's Honey Admin</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <h4 class="fw-bold">Jim's Honey</h4>
+                    </div>
+                    <hr>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="bi bi-speedometer2 me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="products.html">
+                                <i class="bi bi-box-seam me-2"></i>
+                                Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="add-product.html">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Add Product
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="categories.html">
+                                <i class="bi bi-tags me-2"></i>
+                                Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="orders.html">
+                                <i class="bi bi-cart-check me-2"></i>
+                                Orders
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customers.html">
+                                <i class="bi bi-people me-2"></i>
+                                Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="reports.html">
+                                <i class="bi bi-graph-up me-2"></i>
+                                Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings.html">
+                                <i class="bi bi-gear me-2"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Top Navigation -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Products</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <!-- Dark/Light Mode Toggle -->
+                        <div class="form-check form-switch me-3 pt-1">
+                            <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                            <label class="form-check-label" for="darkModeToggle">
+                                <i class="bi bi-moon-stars"></i>
+                            </label>
+                        </div>
+                        <a href="add-product.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i> Add New Product
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product Management Section -->
+                <div class="row">
+                    <!-- Filter Sidebar -->
+                    <div class="col-md-3 mb-4">
+                        <div class="card filter-sidebar">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Filters</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Search -->
+                                <div class="mb-3">
+                                    <label for="searchInput" class="form-label">Search</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="searchInput" placeholder="Search products...">
+                                        <button class="btn btn-outline-secondary" type="button">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Category Filter -->
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="bags" id="categoryBags" checked>
+                                        <label class="form-check-label" for="categoryBags">
+                                            Bags
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="accessories" id="categoryAccessories" checked>
+                                        <label class="form-check-label" for="categoryAccessories">
+                                            Accessories
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="jewelry" id="categoryJewelry" checked>
+                                        <label class="form-check-label" for="categoryJewelry">
+                                            Jewelry
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="watches" id="categoryWatches" checked>
+                                        <label class="form-check-label" for="categoryWatches">
+                                            Watches
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="clothing" id="categoryClothing" checked>
+                                        <label class="form-check-label" for="categoryClothing">
+                                            Clothing
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Price Range Filter -->
+                                <div class="mb-3">
+                                    <label for="priceRange" class="form-label">Price Range</label>
+                                    <div class="d-flex align-items-center">
+                                        <span id="priceMin">$0</span>
+                                        <input type="range" class="form-range mx-2" id="priceRange" min="0" max="500" step="10" value="500">
+                                        <span id="priceMax">$500</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Color Filter -->
+                                <div class="mb-3">
+                                    <label class="form-label">Color</label>
+                                    <div class="d-flex flex-wrap">
+                                        <div class="color-option me-2 mb-2" style="background-color: #000000;" data-color="Black"></div>
+                                        <div class="color-option me-2 mb-2" style="background-color: #FFFFFF; border: 1px solid #dee2e6;" data-color="White"></div>
+                                        <div class="color-option me-2 mb-2" style="background-color: #FF0000;" data-color="Red"></div>
+                                        <div class="color-option me-2 mb-2" style="background-color: #0000FF;" data-color="Blue"></div>
+                                        <div class="color-option me-2 mb-2" style="background-color: #FFFF00;" data-color="Yellow"></div>
+                                        <div class="color-option me-2 mb-2" style="background-color: #008000;" data-color="Green"></div>
+                                        <div class="color-option me-2 mb-2" style="background-color: #FFC0CB;" data-color="Pink"></div>
+                                        <div class="color-option me-2 mb-2" style="background-color: #A52A2A;" data-color="Brown"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Rating Filter -->
+                                <div class="mb-3">
+                                    <label class="form-label">Rating</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating5" value="5">
+                                        <label class="form-check-label" for="rating5">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating4" value="4" checked>
+                                        <label class="form-check-label" for="rating4">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star text-warning"></i>
+                                            & Up
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating3" value="3">
+                                        <label class="form-check-label" for="rating3">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star text-warning"></i>
+                                            <i class="bi bi-star text-warning"></i>
+                                            & Up
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Status Filter -->
+                                <div class="mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" id="statusFilter">
+                                        <option value="all" selected>All</option>
+                                        <option value="in-stock">In Stock</option>
+                                        <option value="low-stock">Low Stock</option>
+                                        <option value="out-of-stock">Out of Stock</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Featured/Best Seller Filter -->
+                                <div class="mb-3">
+                                    <label class="form-label">Special</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="featured" id="featuredFilter">
+                                        <label class="form-check-label" for="featuredFilter">
+                                            Featured
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="best-seller" id="bestSellerFilter">
+                                        <label class="form-check-label" for="bestSellerFilter">
+                                            Best Seller
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Filter Buttons -->
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary" type="button">Apply Filters</button>
+                                    <button class="btn btn-outline-secondary" type="button">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product List -->
+                    <div class="col-md-9">
+                        <!-- Sorting and View Options -->
+                        <div class="card mb-4">
+                            <div class="card-body py-2">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6 mb-2 mb-md-0">
+                                        <span class="text-muted">Showing 1-12 of 48 products</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex justify-content-md-end">
+                                            <div class="me-2">
+                                                <select class="form-select form-select-sm" id="sortOptions">
+                                                    <option value="newest">Newest</option>
+                                                    <option value="price-low-high">Price: Low to High</option>
+                                                    <option value="price-high-low">Price: High to Low</option>
+                                                    <option value="best-selling">Best Selling</option>
+                                                    <option value="rating">Rating</option>
+                                                </select>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-outline-secondary btn-sm active">
+                                                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm">
+                                                    <i class="bi bi-list"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Loading Indicator -->
+                        <div id="loading-indicator" class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading products...</p>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div id="error-message" class="alert alert-danger d-none" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <span id="error-text">Error loading product data.</span>
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-3" id="retry-btn">Retry</button>
+                        </div>
+                        
+                        <!-- Product Grid -->
+                        <div id="product-grid" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+                            <!-- Products will be dynamically loaded here -->
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <nav class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/products.js"></script>
+    <script src="js/darkmode.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<!-- Dashboard Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-primary h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">Total Products</h6>
+                        <h2 class="card-text">@ViewBag.TotalProducts</h2>
+                    </div>
+                    <i class="bi bi-box-seam fs-1"></i>
+                </div>
+                <p class="card-text mt-2"><small>12% increase from last month</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-success h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">Total Sales</h6>
+                        <h2 class="card-text">$@ViewBag.TotalSales.ToString("N0")</h2>
+                    </div>
+                    <i class="bi bi-currency-dollar fs-1"></i>
+                </div>
+                <p class="card-text mt-2"><small>8% increase from last month</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-warning h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">New Orders</h6>
+                        <h2 class="card-text">@ViewBag.NewOrders</h2>
+                    </div>
+                    <i class="bi bi-cart-plus fs-1"></i>
+                </div>
+                <p class="card-text mt-2"><small>5% increase from last week</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-info h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">Customers</h6>
+                        <h2 class="card-text">@ViewBag.Customers.ToString("N0")</h2>
+                    </div>
+                    <i class="bi bi-people fs-1"></i>
+                </div>
+                <p class="card-text mt-2"><small>15% increase from last month</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sales Chart -->
+<div class="row mb-4">
+    <div class="col-md-8 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Sales Overview</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="salesChart" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Top Categories</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="categoryChart" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Products -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title">Recent Products</h5>
+                <a asp-controller="Admin" asp-action="Products" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Rating</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in ViewBag.RecentProducts)
+                            {
+                                <tr>
+                                    <td><img src="@product.ImageUrl" alt="@product.Name" class="img-thumbnail"></td>
+                                    <td>@product.Name</td>
+                                    <td>@product.Category</td>
+                                    <td>$@product.Price.ToString("F2")</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-1">@product.Rating</span>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if (product.Status == "In Stock")
+                                        {
+                                            <span class="badge bg-success">In Stock</span>
+                                        }
+                                        else if (product.Status == "Low Stock")
+                                        {
+                                            <span class="badge bg-warning text-dark">Low Stock</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Out of Stock</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a asp-controller="Admin" asp-action="Product" asp-route-id="@product.Id" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                                            <form asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@product.Id" method="post" style="display: inline;">
+                                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this product?');"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/admin/js/dashboard.js" asp-append-version="true"></script>
+}
