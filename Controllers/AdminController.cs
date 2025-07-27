@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using olshop.Models;
+using olshop.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,35 +10,36 @@ namespace olshop.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly ProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public AdminController()
+        public AdminController(IProductRepository productRepository)
         {
-            _productRepository = new ProductRepository();
+            _productRepository = productRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.TotalProducts = _productRepository.GetTotalProductCount();
-            ViewBag.TotalSales = _productRepository.GetTotalSales();
-            ViewBag.NewOrders = _productRepository.GetNewOrdersCount();
-            ViewBag.Customers = _productRepository.GetCustomersCount();
+            ViewBag.TotalProducts = await _productRepository.GetTotalProductCountAsync();
+            ViewBag.TotalSales = await _productRepository.GetTotalSalesAsync();
+            ViewBag.NewOrders = await _productRepository.GetNewOrdersCountAsync();
+            ViewBag.Customers = await _productRepository.GetCustomersCountAsync();
             
             // Get recent products for the dashboard
-            ViewBag.RecentProducts = _productRepository.GetAllProducts().Take(5);
+            var allProducts = await _productRepository.GetAllProductsAsync();
+            ViewBag.RecentProducts = allProducts.Take(5);
             
             return View();
         }
 
-        public IActionResult Products()
+        public async Task<IActionResult> Products()
         {
-            var products = _productRepository.GetAllProducts();
+            var products = await _productRepository.GetAllProductsAsync();
             return View(products);
         }
 
-        public IActionResult Product(int id)
+        public async Task<IActionResult> Product(int id)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = await _productRepository.GetProductByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -52,11 +54,11 @@ namespace olshop.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(Product product)
+        public async Task<IActionResult> AddProduct(Product product)
         {
             if (ModelState.IsValid)
             {
-                _productRepository.AddProduct(product);
+                await _productRepository.AddProductAsync(product);
                 return RedirectToAction(nameof(Products));
             }
             
@@ -64,12 +66,12 @@ namespace olshop.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct(int id, Product product)
+        public async Task<IActionResult> UpdateProduct(int id, Product product)
         {
             if (ModelState.IsValid)
             {
                 product.Id = id; // Ensure the ID is set correctly
-                _productRepository.UpdateProduct(product);
+                await _productRepository.UpdateProductAsync(product);
                 return RedirectToAction(nameof(Products));
             }
             
@@ -77,9 +79,9 @@ namespace olshop.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            _productRepository.DeleteProduct(id);
+            await _productRepository.DeleteProductAsync(id);
             return RedirectToAction(nameof(Products));
         }
     }

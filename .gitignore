@@ -402,3 +402,4 @@ FodyWeavers.xsd
 
 # macOS
 .DS_Store
+*.db

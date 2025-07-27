@@ -3,6 +3,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Register database services
+builder.Services.AddSingleton<olshop.Data.IDatabaseConnectionFactory, olshop.Data.DatabaseConnectionFactory>();
+builder.Services.AddSingleton<olshop.Data.ISqlQueryProvider, olshop.Data.SqlQueryProvider>();
+builder.Services.AddScoped<olshop.Data.IProductRepository, olshop.Data.ProductRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
